@@ -15,9 +15,7 @@ import StudyDetailUpdate from "./StudyDetailUpdate";
 
 // function AuthenticatedRoute({ children }) {
 //   const authContext = useAuth();
-
 //   if (authContext.isAuthenticated) return children;
-
 //   return <Navigate to="/" />;
 // }
 
