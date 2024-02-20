@@ -14,7 +14,7 @@ import Calendar from "./TodoList/Calender";
 import StudyRoomTitle from "./StudyRoomTitle";
 import Application from "./Application";
 import ChattingPage from "./Chatting/pages/ChattingPage";
-import "./css/StudyRoomTitle.css";
+import "../../css/StudyRoomTitle.css";
 
 const StudyRoom = () => {
   const [userData, setUserData] = useState("");

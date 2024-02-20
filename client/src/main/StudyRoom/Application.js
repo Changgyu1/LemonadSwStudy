@@ -3,7 +3,7 @@ import "../../css/MainPageCss.css";
 import { useParams } from "react-router-dom";
 import usersUserinfoAxios from "../../token/tokenAxios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./css/Application.css";
+import "../../css/Application.css";
 
 import Modal from "../../main/Modal";
 import ProfileModal from "../../main/ProfileModal";

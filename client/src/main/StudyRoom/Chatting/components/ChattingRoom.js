@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import useMessageStore from "../hooks/useMessageStore";
 import { messageStore } from "../stores/MessageStore"; // 이 줄 추가
 import usersUserinfoAxios from "../../../../token/tokenAxios";
-import "./Chatting.css";
-import ChatSubmit from "./chatSubmit.png";
+import "../../../../css/Chatting.css"
+import ChatSubmit from "../../../img/chatSubmit.png";
 import Girl from "../../../img/girl.png";
 
 const Room = () => {

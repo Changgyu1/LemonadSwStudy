@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import usersUserinfoAxios from "../../token/tokenAxios";
-import "./css/Notice.css";
+import "../../css/Notice.css";
 const DayCount = () => {
   const { post_no } = useParams(); // 동적 라우트 매개변수 가져오기
 

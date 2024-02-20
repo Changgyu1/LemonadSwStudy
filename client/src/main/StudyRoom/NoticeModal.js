@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./css/Notice.css";
+import "../../css/Notice.css";
 function NoticeModal() {
   const { post_no } = useParams();
   const [notice, setNotice] = useState({

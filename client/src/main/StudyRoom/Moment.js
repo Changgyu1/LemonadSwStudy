@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "../../css/MainPageCss.css";
-import "./css/Moment.css";
+import "../../css/Moment.css";
 import { useParams } from "react-router-dom";
 import usersUserinfoAxios from "../../token/tokenAxios";
 import "bootstrap/dist/css/bootstrap.min.css";

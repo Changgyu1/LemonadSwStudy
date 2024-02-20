@@ -1,4 +1,4 @@
-import '../css/Profile.css';
+import '../../css/Profile.css';
 import usersUserinfoAxios from '../token/tokenAxios';
 import { useState, useEffect } from 'react';
 

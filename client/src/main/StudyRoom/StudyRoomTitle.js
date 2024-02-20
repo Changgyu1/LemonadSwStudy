@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import usersUserinfoAxios from "../../token/tokenAxios";
 import axios from "axios";
-import "./css/StudyRoomTitle.css";
+import "../../css/StudyRoomTitle.css";
 import EditImg from "../img/editButton.png";
 const StudyRoomTitle = () => {
   const { post_no } = useParams();
