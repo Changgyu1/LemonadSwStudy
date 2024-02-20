@@ -14,16 +14,6 @@ public class SwithApplication {
 	}
 	
 
-	@Bean
-	public WebMvcConfigurer corsConfigure() {
-		return new WebMvcConfigurer(){
-			
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**")
-				.allowedMethods("*")
-				.allowedOrigins("*");
-			}
-		};
-	}
+	
 
 }
