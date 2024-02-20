@@ -1,0 +1,87 @@
+table {
+  border-collapse: collapse;
+  width: 70%;
+  margin: 1rem auto;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+/* 테이블 행 */
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+th {
+  background-color: #f2d1d1;
+  color: #878686;
+}
+
+/* 테이블 올렸을 때 */
+tbody tr:hover {
+  background-color: #d3d3d3;
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+/* 테이블 비율 */
+th:nth-child(1),
+td:nth-child(1) {
+  width: 20%;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  width: 60%;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  width: 50%;
+}
+
+.admin_page {
+  font-family: "SUITE-Regular";
+  margin-bottom: 100px;
+}
+
+.admin_search_container {
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  height: 40px;
+  padding: 0 20px;
+  align-items: center;
+  grid-gap: 10px;
+  gap: 10px;
+  border-radius: 36px;
+  background: #f2d1d1;
+  position: relative;
+  border: 2px solid rgb(221, 221, 221);
+}
+
+.admin_search_box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.admin_page_margin {
+  margin-bottom: 30px;
+}
+
+.admin_page_button {
+  height: 20px;
+  background: #8ee3ff;
+  border-radius: 50px;
+  color: #525252;
+  font-size: 13px;
+  font-family: "SUITE-Regular";
+  padding: 0 20px;
+  border: 0px;
+  text-align: right;
+  margin-left: 20px;
+}

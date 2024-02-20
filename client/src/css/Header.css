@@ -1,0 +1,160 @@
+@font-face {
+  font-family: "LOTTERIACHAB";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/LOTTERIACHAB.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.navbar-brand_font {
+  font-family: "LOTTERIACHAB", sans-serif;
+  color: #75ddff;
+  font-size: 60px;
+}
+
+.navbar-brand_right {
+  display: flex;
+  grid-gap: 30px;
+  gap: 30px;
+  align-items: center;
+}
+
+.write {
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.nav_section {
+  margin: auto;
+  max-width: 1180px;
+  display: flex;
+  justify-content: space-between;
+
+  height: 140px;
+  padding: 0 10px;
+}
+
+.navbar-nav_2 {
+  --bs-nav-link-padding-x: 0;
+  --bs-nav-link-padding-y: 0.5rem;
+  --bs-nav-link-font-weight: ;
+  --bs-nav-link-color: var(--bs-navbar-color);
+  --bs-nav-link-hover-color: var(--bs-navbar-hover-color);
+  --bs-nav-link-disabled-color: var(--bs-navbar-disabled-color);
+  display: flex;
+
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  padding-top: 20px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.write,
+.alarm,
+.profile {
+  margin-right: 10px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+}
+
+.write_1,
+.alarm_1,
+.profile_1 {
+  display: flex;
+  position: relative;
+}
+
+.write_img {
+  display: flex;
+  width: 45px;
+  height: 45px;
+  margin-top: 30px;
+}
+
+.alarm_img {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  margin-top: 30px;
+}
+
+.profile_img {
+  width: 50px;
+  height: 50px;
+  margin-top: 35px;
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.login_img {
+  display: flex;
+  width: 55px;
+  height: 55px;
+  margin-top: 30px;
+}
+
+.userIconGng {
+  position: relative;
+}
+
+.userIconGng > ul {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.profileItem {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+.profileItem ul {
+  font-family: "SUITE-Regular";
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.profileList {
+  align-self: flex-end;
+}
+
+.profileItem:hover {
+  cursor: pointer;
+}
+
+.nav-link {
+  padding-top: 15px;
+}
+
+.alarm_title {
+  font-size: 23px;
+  font-family: "SejonghospitalBold", sans-serif;
+  color: #313131;
+}
+
+.alarm_link {
+  cursor: pointer;
+}
+
+.alarm_link:hover {
+  color: #ff9035;
+  cursor: pointer;
+}
+
+.alarm_content_div {
+  display: flex;
+}
+
+.delete_img_alarm {
+  width: 20px;
+  height: 20px;
+  margin-left: 7px;
+  margin-top: 3px;
+}

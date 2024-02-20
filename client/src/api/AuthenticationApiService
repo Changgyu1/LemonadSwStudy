@@ -1,0 +1,9 @@
+import { apiClient } from "./ApiClient";
+
+// 사용자가 제공한 사용자 이름(username)과 비밀번호(password)를 사용하여
+//서버에 인증 요청을 보냅니다.
+
+const JwtAuthenticationService = (username, password) =>
+  apiClient.post(`/authenticate`, { username, password });
+
+export default JwtAuthenticationService;

@@ -1,0 +1,36 @@
+<!-- MembersMapper (myBatis) -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lm.swith.alarm.mapper.AlarmMapper">
+
+    <resultMap id="alarmResultMap" type="lm.swith.alarm.model.Alarm">
+        <id property="alarm_no" column="alarm_no" />
+        <result property="user_no" column="user_no" />
+        <result property="post_no" column="post_no" />
+        <result property="timestamp" column="timestamp" />
+        <result property="alarm_message" column="alarm_message" />
+    </resultMap>
+
+    <select id="getAlarmByUserNo" resultMap="alarmResultMap">
+        SELECT * FROM alarm WHERE user_no = #{user_no}
+    </select>
+
+    <insert id="insertAlarm" parameterType="lm.swith.alarm.model.Alarm">
+        INSERT INTO alarm (user_no, post_no, alarm_message)
+        VALUES (#{user_no}, #{post_no}, #{alarm_message})
+    </insert>
+    
+     <select id="AlarmByData" resultType="boolean" parameterType="java.util.Map">
+        SELECT COUNT(*) FROM alarm WHERE user_no = #{user_no} AND post_no = #{post_no} AND alarm_message = #{alarm_message}
+    </select>
+    
+    <!-- 알람 삭제 -->
+	<delete id="deleteAlarm" parameterType="Long">
+		DELETE FROM alarm WHERE ALARM_NO = #{alarm_no}
+	</delete>
+
+    <!-- 알람 삭제 (post_no) 기준 -->
+	<delete id="deleteAlarmBypost_no" parameterType="Long">
+		DELETE FROM alarm WHERE post_no = #{post_no}
+	</delete>
+</mapper>

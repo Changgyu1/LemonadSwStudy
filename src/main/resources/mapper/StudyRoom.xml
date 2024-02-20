@@ -1,0 +1,113 @@
+<!-- MembersMapper (myBatis) -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lm.swith.studyroom.mapper.StudyRoomMapper">
+		<resultMap id="messageResultMap" type="lm.swith.studyroom.model.MessageRequestDto">
+        <id property="message_id" column="message_id"/>
+        <result property="post_no" column="post_no"/>
+        <result property="nickname" column="nickname"/>
+        <result property="message" column="message"/>
+        <result property="timestamp" column="timestamp"/>
+    </resultMap>
+	<!-- insert -->
+	<insert id="createStudyRoomNotice" parameterType="lm.swith.studyroom.model.StudyRoomNotice">
+	INSERT INTO STUDY_ROOM_NOTICE(POST_NO, USER_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_PASSWORD)
+	VALUES(#{post_no}, #{user_no}, #{notice_title}, #{notice_content}, #{notice_password})
+	</insert>
+
+	<insert id="createStudyMoment" parameterType="lm.swith.studyroom.model.StudyMoment">
+	INSERT INTO STUDY_Moment(POST_NO, USER_NO, MOMENT_PICTURE, MOMENT_TITLE)
+	VALUES(#{post_no}, #{user_no}, #{moment_picture}, #{moment_title})
+	</insert>
+	
+	
+	<!-- Chat -->
+	 <insert id="insertMessage" parameterType="lm.swith.studyroom.model.MessageRequestDto">
+        INSERT INTO message (post_no, nickname, message)
+        VALUES (#{post_no}, #{nickname}, #{message})
+    </insert>
+    
+
+
+   
+	
+	
+	<!-- select -->
+	<select id="findByUserNo" parameterType="lm.swith.user.model.SwithUser">
+		SELECT * FROM Users WHERE USER_NO = #{user_no}
+	</select>
+	
+	<select id="findByStudyNoticeWithNickname" parameterType="lm.swith.studyroom.model.StudyRoomNotice">
+		SELECT SM.*, U.nickname
+		FROM STUDY_ROOM_NOTICE SM
+		JOIN Users U ON SM.USER_NO = U.USER_NO
+		WHERE SM.POST_NO = #{post_no}
+		ORDER BY notice_post_date DESC
+	</select>
+	
+	<select id="findByStudyMoment" parameterType="lm.swith.studyroom.model.StudyMoment">
+		SELECT SM.*,U.nickname
+		FROM STUDY_MOMENT SM
+		JOIN Users U ON SM.USER_NO = U.USER_NO
+		WHERE SM.POST_NO = #{post_no} ORDER BY moment_post_date DESC
+	</select>
+	
+	<!-- Chat log -->
+	 <select id="selectMessagesByPostNo" resultMap="messageResultMap">
+        SELECT * FROM message WHERE post_no = #{post_no} ORDER BY timestamp ASC
+    </select>
+	
+	<!-- delete notice, moment -->
+	<delete id="deleteStudyRoomNotice" parameterType="lm.swith.studyroom.model.StudyRoomNotice">
+		DELETE FROM STUDY_ROOM_NOTICE WHERE NOTICE_NO = #{notice_no} AND NOTICE_PASSWORD = #{notice_password}
+	</delete>
+	
+	<delete id="deleteStudyMoment" parameterType="lm.swith.studyroom.model.StudyMoment">
+		DELETE FROM STUDY_MOMENT WHERE USER_NO = #{user_no} AND MOMENT_NO = #{moment_no}
+	</delete>
+	
+	<!-- 스터디 룸 제목  -->
+	<select id="getStudyRoomTitle" resultType="lm.swith.main.model.StudyPost">
+		SELECT * FROM study_post WHERE post_no = #{post_no} 
+	</select>
+	
+	<!-- 스터디 룸 제목 수정  -->
+	<update id= "updateStudyRoomTitle" parameterType="lm.swith.main.model.StudyPost">
+	  UPDATE STUDY_POST SET STUDY_TITLE = #{study_title} WHERE post_no = #{post_no} AND user_no = #{user_no}
+	</update>
+	<!-- 스터디방 삭제를 위한 Moment,Notice,Message,Events DELETE -->
+	<delete id="deleteStudyRoomNoticeByPostNo" parameterType="lm.swith.studyroom.model.StudyRoomNotice">
+		DELETE FROM STUDY_ROOM_NOTICE WHERE POST_NO = #{post_no}
+	</delete>
+	
+	<delete id="deleteStudyMomentPostNo" parameterType="lm.swith.studyroom.model.StudyMoment">
+		DELETE FROM STUDY_MOMENT WHERE POST_NO = #{post_no}
+	</delete>
+	
+
+	
+	<delete id="deleteMessagePostNo" parameterType="lm.swith.studyroom.model.MessageRequestDto">
+		DELETE FROM message WHERE POST_NO = #{post_no}
+	</delete>
+	
+	
+	<!-- calendar & Todo -->
+	<insert id="createTodoList" parameterType="lm.swith.studyroom.model.Todo">
+	INSERT INTO TODO (POST_NO,TODO_LIST, CHECKED, TODO_DATE)
+	VALUES(#{post_no},  #{todo_list}, #{checked}, #{todo_date})
+	</insert>
+	
+	<select id= "getTodoList" parameterType ="lm.swith.studyroom.model.Todo">
+		SELECT * FROM TODO WHERE POST_NO = #{post_no} AND TODO_DATE = #{todo_date}
+	</select>
+	
+	<update id="updateTodoList" parameterType="lm.swith.studyroom.model.Todo">
+		UPDATE TODO SET TODO_LIST = #{todo_list} WHERE post_no =#{post_no} AND id=#{id} AND TODO_DATE = #{todo_date}
+	</update>
+		<delete id="deleteTodoList" parameterType="lm.swith.studyroom.model.Todo">
+		DELETE FROM TODO WHERE post_no=#{post_no} AND id = #{id} AND TODO_DATE = #{todo_date}
+	</delete>
+	
+
+	
+</mapper>
