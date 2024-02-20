@@ -1,5 +1,4 @@
 lm\swith\studyroom\model\StudyMomentListResponse.class
-lm\swith\SwithApplication$1.class
 lm\swith\main\model\Mentee.class
 lm\swith\user\token\JwtAuthenticationFilter.class
 lm\swith\main\model\StudyApplication.class
