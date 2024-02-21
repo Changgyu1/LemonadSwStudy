@@ -7,7 +7,7 @@ import Required from "./img/required.png";
 import sample6_execDaumPostcode from "./KakaoAddress";
 import girl from "../main/img/girl.png";
 import Footer from "./Footer";
-
+import AxiosUser from "../token/tokenAxios"
 function RegisterUser() {
   const [number, setNumber] = useState(""); //보낸 난수
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -79,8 +79,8 @@ function RegisterUser() {
   const handleEmail = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:8080/users/mail",
+      const response = await AxiosUser.post(
+        "/users/mail",
         swithUser,
         {
           withCredentials: true,
@@ -114,8 +114,8 @@ function RegisterUser() {
       return;
     }
     try {
-      const response = await axios.post(
-        "http://localhost:8080/users/nickname",
+      const response = await AxiosUser.post(
+        "/users/nickname",
         swithUser,
         {
           withCredentials: true,
@@ -187,8 +187,8 @@ function RegisterUser() {
       try {
         //변경된 데이터 값 저장
 
-        const response = await axios.post(
-          "http://localhost:8080/users/register",
+        const response = await AxiosUser.post(
+          "/users/register",
           swithUser,
           {
             withCredentials: true,
