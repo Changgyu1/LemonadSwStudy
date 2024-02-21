@@ -79,14 +79,15 @@ function NoticeModal() {
     <div>
       <div>
         <h4 className="notice">
-          Notice 📢
+          Notice 💡
           <Button
-            className="Modal_btn"
+            className="notice_btn"
             variant="outline-primary"
             onClick={handleShow}
           >
-            공지글+
+            공지글 +
           </Button>
+          Chatting 💬
         </h4>
       </div>
 
@@ -105,8 +106,9 @@ function NoticeModal() {
               value={userData.user_no}
               onChange={handleInputChange}
             />
-            공지글 제목 :
+            <div className="notice_modal_title">공지글 제목 :</div>
             <input
+              className="notice_title_textInput"
               type="text"
               name="notice_title"
               value={notice.notice_title}
@@ -117,9 +119,9 @@ function NoticeModal() {
         </Modal.Header>
         <Modal.Body>
           {" "}
-          내용 :
+          <div className="notice_modal_content">내용 :</div>
           <input
-            className="textInput"
+            className="notice_content_textInput"
             type="text"
             name="notice_content"
             value={notice.notice_content}
@@ -128,8 +130,9 @@ function NoticeModal() {
           />
         </Modal.Body>
         <Modal.Footer>
-          비밀번호(숫자4자리)
+          <div className="notice_title_password"> 비밀번호(숫자4자리) </div>
           <input
+            className="notice_modal_password"
             type="password"
             name="notice_password"
             maxLength="4"

@@ -51,7 +51,6 @@ export default function Toggle() {
       {selectedCity && (
         <div>
           <p>{selectedCity}의 내용을 표시하는 부분</p>
-          {/* 선택된 도시의 내용을 표시하는 부분을 추가하십시오. */}
         </div>
       )}
     </div>

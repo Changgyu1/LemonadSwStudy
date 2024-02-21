@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
-import '../../css/MainPageCss.css';
-import { useParams } from 'react-router-dom';
-import usersUserinfoAxios from '../../token/tokenAxios';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState, useEffect } from "react";
+import "../../css/MainPageCss.css";
+import { useParams } from "react-router-dom";
+import usersUserinfoAxios from "../../token/tokenAxios";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./css/Application.css";
 
-import Modal from './Modal';
-import ProfileModal from './Modal';
+import Modal from "../../main/Modal";
+import ProfileModal from "../../main/ProfileModal";
 const Application = () => {
   const { post_no } = useParams();
   const [profile, setProfile] = useState(false);
@@ -13,17 +14,17 @@ const Application = () => {
   //select
   const [participant, setParticipant] = useState([]);
 
-  const [userData, setUserData] = useState('');
+  const [userData, setUserData] = useState("");
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         // 서버에 사용자 정보를 가져오는 요청
-        const response = await usersUserinfoAxios.get('/users/userinfo');
+        const response = await usersUserinfoAxios.get("/users/userinfo");
         setUserData(response.data);
 
         console.log(userData);
       } catch (error) {
-        console.error('Failed to fetch user data.', error);
+        console.error("Failed to fetch user data.", error);
       }
     };
 
@@ -47,7 +48,7 @@ const Application = () => {
         //console.log(response.data);
       } catch (error) {
         //console.error("Failed to fetch user data.", error);
-        console.log('값을 못불러와요', error);
+        console.log("값을 못불러와요", error);
       }
     };
     fetchMoment();
@@ -55,20 +56,20 @@ const Application = () => {
 
   return (
     <div>
-      <h4>참가자</h4>
+      <p className="application_members">S.With Members 🧍‍♂️🧍‍♀️</p>
       <ul>
         {Array.isArray(participant) && participant.length > 0 ? (
           participant.map((participant) => (
             <li
               key={participant.post_no}
-              style={{ display: 'inline-block', marginRight: '10px' }}
+              style={{ display: "inline-block", marginRight: "10px" }}
             >
-              {' '}
+              {" "}
               <div>
                 <img
                   className="user_profile_img_set"
-                  width="50px"
-                  height="50px"
+                  width="75px"
+                  height="75px"
                   src={`data:image/jpeg;base64,${participant.user_profile}`}
                   alt="Profile"
                   onClick={(e) => {
@@ -82,9 +83,13 @@ const Application = () => {
                     setProfileUserNo(clickedUserNo);
                     setProfile(!profile);
                   }}
+                  style={{
+                    marginBottom: "10px",
+                    cursor: "pointer",
+                  }}
                 />
-                <br />
-                <p>{participant.nickname}</p>
+
+                <p className="participant_name">{participant.nickname}</p>
               </div>
             </li>
           ))

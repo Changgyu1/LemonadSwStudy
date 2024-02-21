@@ -245,6 +245,32 @@
   margin-left: 550px;
 }
 
+.commentDelete_buttonComplete_list {
+  height: 20px;
+  background: #8ee3ff;
+  border-radius: 50px;
+  color: #525252;
+  font-size: 13px;
+  font-family: "SUITE-Regular";
+  padding: 0 20px;
+  border: 0px;
+  text-align: right;
+  margin-left: 400px;
+}
+
+.commentDelete_buttonComplete_list2 {
+  height: 20px;
+  background: #8ee3ff;
+  border-radius: 50px;
+  color: #525252;
+  font-size: 13px;
+  font-family: "SUITE-Regular";
+  padding: 0 20px;
+  border: 0px;
+  text-align: right;
+  margin-left: 10px;
+}
+
 .commentItem_CommentList {
   display: flex;
   justify-content: space-between;
@@ -254,6 +280,13 @@
   color: #333;
   font-family: "SUITE-Regular";
   font-weight: 700;
+}
+
+.commentItem_userNickname_list {
+  color: #333;
+  font-family: "SUITE-Regular";
+  font-weight: 700;
+  width: 100px;
 }
 
 .commentItem_registeredDate {
@@ -278,6 +311,10 @@
 
 .commentList_CommentList {
   width: 100%;
+}
+
+.comment_list_box {
+  margin-left: 37px;
 }
 
 .studyApplication {
@@ -360,4 +397,14 @@
   margin-left: 2rem;
   position: fixed;
   top: 350px;
+}
+
+.comment_edit_box {
+  width: 100px;
+}
+
+.comment_list_box {
+  width: 560px;
+  margin-left: 10%;
+  flex-wrap: wrap;
 }

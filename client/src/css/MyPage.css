@@ -139,13 +139,24 @@ a {
 .mypage_title {
   font-family: "NPSfontBold";
   color: #2c2f30;
-  font-weight: 700;
-  font-size: 47px;
+  font-size: 30px;
   line-height: 40px;
   letter-spacing: -0.05em;
-  margin: 0;
-  padding-bottom: 100px;
-  padding-left: 140px;
+  margin-top: 80px;
+  padding-bottom: 10px;
+  padding-left: 10%;
+  display: flex;
+}
+
+.mypage_title_main {
+  font-family: "NPSfontBold";
+  color: #2c2f30;
+  font-size: 50px;
+  line-height: 40px;
+  letter-spacing: -0.05em;
+  margin-top: 80px;
+  padding-bottom: 10px;
+  padding-left: 10%;
   display: flex;
 }
 
@@ -233,4 +244,61 @@ a {
   -webkit-line-clamp: 2;
   word-break: break-all;
   overflow: hidden;
+}
+
+.mypage_table {
+  border-collapse: collapse;
+  width: 80%;
+  margin: 1rem auto;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+.mypage_margin {
+  margin-bottom: 30px;
+}
+
+.mypage_table th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.mypage_table th {
+  background-color: #e3ffb7;
+  color: #878686;
+}
+
+.mypage_table tbody tr:hover {
+  background-color: #fcffcc;
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+/* 테이블 비율 */
+.mypage_table th:nth-child(1),
+.mypage_table td:nth-child(1) {
+  width: 10%;
+}
+
+.mypage_table th:nth-child(2),
+.mypage_table td:nth-child(2) {
+  width: 30%;
+}
+
+.mypage_table th:nth-child(3),
+.mypage_table td:nth-child(3) {
+  width: 20%;
+}
+
+.mypage_table th:nth-child(4),
+.mypage_table td:nth-child(4) {
+  width: 10%;
+}
+
+.mypage_table th:nth-child(5),
+.mypage_table td:nth-child(5) {
+  width: 20%;
 }

@@ -3,7 +3,7 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { useState } from "react";
 import { messageService } from "../Service/MessageService";
-import usersUserinfoAxios from "../../../token/tokenAxios";
+import usersUserinfoAxios from "../../../../token/tokenAxios";
 const baseUrl = "http://localhost:8080";
 
 export default class MessageStore {
@@ -69,7 +69,6 @@ export default class MessageStore {
       );
       const responseData = await response.json();
       this.updateMessageLogs(responseData); // 업데이트된 메시지로그 설정
-      this.sendMessage({ type: "enter" });
     } catch (error) {
       console.error("연결 및 구독 중 오류 발생:", error);
     }
@@ -85,7 +84,7 @@ export default class MessageStore {
         {}
       );
 
-      // this.sendMessage({ type: "enter" });
+      this.sendMessage({ type: "enter" });
     });
   }
 
@@ -149,8 +148,7 @@ export default class MessageStore {
     //메세지 입력 창 전송 버튼 누르면 전송되는 거
     const message = JSON.parse(messageReceived.body);
     console.log("Received message:", message);
-    const formattedMessage = this.formatMessage(message);
-    this.messageLogs = [...this.messageLogs, formattedMessage];
+    this.messageLogs = [...this.messageLogs, this.formatMessage(message)];
     this.publish();
   }
 

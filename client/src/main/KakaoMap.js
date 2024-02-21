@@ -38,9 +38,9 @@ const KakaoMap = () => {
       try {
         // 서버에 first_study 정보를 가져오는 요청
         const response = await usersUserinfoAxios.get("/post_list");
-        setBplcnms(response.data.map((item) => item.first_study)); // first_study의 bplcnm 설정
-        setPostNo(response.data.map((item) => item.post_no));
-        console.log(response.data.map((item) => item.first_study));
+        setBplcnms(response.data.studyPosts.map((item) => item.first_study)); // first_study의 bplcnm 설정
+        setPostNo(response.data.studyPosts.map((item) => item.post_no));
+        console.log(response.data.studyPosts.map((item) => item.first_study));
       } catch (error) {
         console.error("Failed to fetch first study data.", error);
       }

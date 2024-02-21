@@ -54,7 +54,7 @@ const StudyProject = ({ handleDataFromChild }) => {
   };
   const [applicationCount, setApplicationCount] = useState();
 
-  const [duration, setDuration] = useState("");
+  const [duration, setDuration] = useState();
   const [techStack, setTechStack] = useState([]);
   const [deadline, setDeadline] = useState("");
   const [region, setRegion] = useState("");
@@ -229,7 +229,8 @@ const StudyProject = ({ handleDataFromChild }) => {
           <label className="post_3_label">
             진행기간 :
             <input
-              type="text"
+              type="number"
+              placeholder="개월수를 입력"
               value={duration}
               onChange={(e) => setDuration(e.target.value)}
               onBlur={handleDataChange}

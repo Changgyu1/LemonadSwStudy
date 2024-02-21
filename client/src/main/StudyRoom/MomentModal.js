@@ -1,22 +1,22 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import usersUserinfoAxios from '../../token/tokenAxios';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { useParams } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import usersUserinfoAxios from "../../token/tokenAxios";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { useParams } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function MomentModal() {
   const { post_no } = useParams();
   const [moment, setMoment] = useState({
     post_no: `${post_no}`,
-    user_no: '',
-    moment_no: '',
-    moment_title: '',
-    img: '',
+    user_no: "",
+    moment_no: "",
+    moment_title: "",
+    img: "",
   });
   const [showModal, setShow] = useState(false); //show Modal
-  const [userData, setUserData] = useState('');
+  const [userData, setUserData] = useState("");
   const handleClose = () => setShow(false); //모달창 열고닫는 핸들러
   const handleShow = () => setShow(true);
 
@@ -25,7 +25,7 @@ function MomentModal() {
       // 토큰이 없으면 함수 실행 중단
       try {
         // 서버에 사용자 정보를 가져오는 요청
-        const response = await usersUserinfoAxios.get('/users/userinfo');
+        const response = await usersUserinfoAxios.get("/users/userinfo");
         const userNo = response.data.user_no;
         setUserData((prevUserData) => ({
           ...prevUserData,
@@ -63,7 +63,7 @@ function MomentModal() {
 
       setMoment(response.data);
     } catch (error) {
-      console.error('데이터 저장 불가', error);
+      console.error("데이터 저장 불가", error);
     }
     setShow(false);
   };
@@ -82,7 +82,7 @@ function MomentModal() {
   };
   return (
     <div>
-      <Button className="btn" variant="outline-primary" onClick={handleShow}>
+      <Button className="add_moment_btn" onClick={handleShow}>
         S.with Moment +
       </Button>
 
@@ -101,7 +101,7 @@ function MomentModal() {
               value={userData.user_no}
               onChange={handleInputChange}
             />
-            S.with Moment 제목 :
+            <div className="moment_box_title_small">S.with Moment 제목 : </div>
             <input
               type="text"
               name="moment_title"
@@ -112,8 +112,8 @@ function MomentModal() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {' '}
-          S.with Moment :
+          {" "}
+          <div className="moment_img_content"> S.with Moment : </div>
           <input
             className="image_input"
             type="file"
@@ -122,12 +122,14 @@ function MomentModal() {
             required
           />
           {/* 프로필 사진 미리보기를 위한 이미지 컨테이너 */}
-          <div className="profile-image-container">
+          <div className="moment-profile-image-container">
             {moment.img && (
               <img
+                width="250px"
+                height="250px"
                 src={moment.img}
                 alt="s.with moment"
-                className="profile-image"
+                className="moment_profile_image"
               />
             )}
           </div>

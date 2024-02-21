@@ -1,25 +1,26 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import usersUserinfoAxios from '../../token/tokenAxios';
-import axios from 'axios';
-import './css/StudyRoomTitle.css';
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import usersUserinfoAxios from "../../token/tokenAxios";
+import axios from "axios";
+import "./css/StudyRoomTitle.css";
+import EditImg from "../img/editButton.png";
 const StudyRoomTitle = () => {
   const { post_no } = useParams();
 
-  const [userData, setUserData] = useState('');
+  const [userData, setUserData] = useState("");
   const [showInput, setShowInput] = useState(false); //수정하기 버튼 누르면 input
 
   const [studyRoomTitle, setStudyRoomTitle] = useState({
     //가져오고 업데이트 해줄 곳
-    post_no: '',
-    user_no: '',
-    study_title: '',
+    post_no: "",
+    user_no: "",
+    study_title: "",
   });
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await usersUserinfoAxios.get('/users/userinfo');
+        const response = await usersUserinfoAxios.get("/users/userinfo");
         const userNo = response.data.user_no;
 
         setUserData((prevUserData) => ({
@@ -33,7 +34,7 @@ const StudyRoomTitle = () => {
           user_no: userNo,
         }));
       } catch (error) {
-        console.error('Failed to fetch user data.', error);
+        console.error("Failed to fetch user data.", error);
       }
     };
     fetchUserData();
@@ -51,7 +52,7 @@ const StudyRoomTitle = () => {
           study_title: response.data.study_title, // study_title도 설정해줘야 합니다.
         }));
       } catch (error) {
-        console.log('값을 못불러와요', error);
+        console.log("값을 못불러와요", error);
       }
     };
     fetchStudyRoomTitle();
@@ -76,15 +77,15 @@ const StudyRoomTitle = () => {
           withCredentials: true,
         }
       );
-      console.log('서버 응답:', response.data);
+      console.log("서버 응답:", response.data);
       setStudyRoomTitle({
         ...studyRoomTitle,
         study_title: response.data.study_title,
       });
       window.location.reload();
-      console.log('사용자 프로필 업데이트 성공');
+      console.log("사용자 프로필 업데이트 성공");
     } catch (error) {
-      console.error('업데이트 불가', error);
+      console.error("업데이트 불가", error);
     }
   };
   return (
@@ -101,18 +102,22 @@ const StudyRoomTitle = () => {
               onChange={handleInputChange}
             />
             <button
-              className=".notice_x_button "
+              className="room_title_button"
               onClick={(e) => {
                 handleUpdateTitle(e);
                 setShowInput(false);
               }}
             >
-              수정하기
+              <img
+                src={EditImg}
+                alt="edit"
+                style={{ width: "30px", height: "30px" }}
+              />
             </button>
           </>
         ) : (
           <button
-            className="StudyRoomTitle_button"
+            className="StudyRoomTitle_first_button"
             onClick={() => {
               setShowInput((prevShowInput) => !prevShowInput);
             }}
@@ -120,11 +125,23 @@ const StudyRoomTitle = () => {
               display:
                 showInput ||
                 (userData.user_no !== studyRoomTitle.user_no && !showInput)
-                  ? 'none'
-                  : 'block',
+                  ? "none"
+                  : "block",
             }}
           >
-            수정
+            <p>
+              수정
+              <img
+                src={EditImg}
+                alt="edit"
+                style={{
+                  width: "13px",
+                  height: "13px",
+                  marginBottom: "4px",
+                  marginLeft: "4px",
+                }}
+              />
+            </p>
           </button>
         )}
       </div>

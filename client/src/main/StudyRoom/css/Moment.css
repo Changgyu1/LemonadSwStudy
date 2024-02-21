@@ -1,11 +1,36 @@
-.carousel-moment {
-  width: 100%; /* 부모 요소의 너비를 100%로 설정합니다. */
+.moment-container {
+  height: 1000px;
+}
+
+.moment-moment {
+  width: 400px;
+  float: left;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  background-color: transparent;
+  cursor: pointer;
+  margin-left: 3%;
+  margin-bottom: 3%;
+}
+
+.moment_box_title {
+  font-family: "SejonghospitalBold";
+  margin-bottom: 5%;
+  font-size: 45px;
+}
+
+.moment_box_title_small {
+  font-family: "SejonghospitalBold";
+  margin-bottom: 5%;
+  font-size: 25px;
 }
 
 .Moment_item {
-  width: 300px;
+  width: 350px;
   padding-left: 10%;
+  align-items: center; /* 아이템을 수직 가운데 정렬합니다. */
 }
+
 .M_item {
   display: flex;
   flex-direction: row; /* 아이템을 수평으로 배열합니다. */
@@ -15,13 +40,92 @@
 
 .carousel-inner {
   display: flex;
-  flex-wrap: wrap; /* Flex 컨테이너 내에서 각 아이템을 여러 행으로 나누기 위해 필요한 속성 */
+  flex-wrap: wrap;
+  max-width: 1000px; /* 최대 너비 설정 */
+  margin: 0 auto; /* 중앙 정렬을 위해 추가 */
 }
 
 .carousel-item {
-  flex: 0 0 33.333%; /* 각 아이템이 부모 요소의 1/3만큼의 너비를 가지도록 설정 */
-  max-width: 33.333%; /* 아이템의 최대 너비를 설정하여 공간을 균등하게 나눔 */
+  width: 33.33%; /* 각 아이템이 부모 요소의 1/3만큼의 너비를 가지도록 설정 */
+  max-width: 33.33%; /* 아이템의 최대 너비를 설정하여 공간을 균등하게 나눔 */
   display: flex;
-  align-items: center; /* 아이템을 수직 가운데 정렬합니다. */
-  justify-content: center; /* 아이템을 수평 가운데 정렬합니다. */
+  align-items: center;
+  justify-content: center;
+}
+
+.moment-profile-image-container {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.moment_profile_image {
+  width: 250px; /* 이미지의 최대 너비 설정 */
+  height: 250px; /* 이미지의 최대 높이 설정 */
+  margin-top: 10px;
+  /* border: 3px solid #b9eeff; */
+}
+
+.moment_btn {
+  border-radius: 50%;
+  width: 20px; /* 버튼의 너비 */
+  height: 20px; /* 버튼의 높이 */
+  border: none; /* 테두리 제거 */
+  background-color: transparent; /* 배경색 투명 */
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+}
+.add_moment_btn {
+  height: 35px;
+  width: 150px;
+  background: #8ee3ff;
+  border-radius: 50px;
+  font-weight: 700;
+  color: #525252;
+  font-size: 14px;
+  font-family: "SUITE-Regular";
+  padding: 0 20px;
+  border: 0px;
+  margin-right: 85%;
+}
+
+.add_moment_btn:hover {
+  background-color: rgb(186, 216, 234);
+}
+
+.moment_info_section {
+  font-size: 14px;
+  font-weight: 500;
+  justify-content: space-between;
+  letter-spacing: -0.04em;
+  margin-top: 8px;
+}
+
+.moment_title {
+  font-family: "SejonghospitalBold", sans-serif;
+  font-size: 20px;
+  min-height: 50px;
+  line-height: 28px;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  margin: 7px 0 10px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  word-break: break-all;
+  overflow: hidden;
+}
+
+.moment_content {
+  font-family: "SUITE-Regular";
+  display: flex;
+  font-size: 17px;
+  grid-gap: 7px;
+  gap: 8px;
+  color: #656565;
+  font-weight: 500;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+.moment_img_content {
+  font-family: "SUITE-Regular";
 }

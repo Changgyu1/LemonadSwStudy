@@ -7,9 +7,11 @@ import Login from "./Login";
 import RegisterUser from "./RegisterUser";
 import StudyDetail from "./StudyDetail";
 import MyPage from "./MyPage";
-import StudyRoom from "./StudyRoom/Room";
+import StudyRoom from "../main/StudyRoom/Room";
 import ModifyPage from "./ModifyPage";
-import StudyApplication from "./StudyApplication";
+import FindUser from "./FindUser";
+import Admin from "./Admin";
+import StudyDetailUpdate from "./StudyDetailUpdate";
 
 // function AuthenticatedRoute({ children }) {
 //   const authContext = useAuth();
@@ -33,7 +35,12 @@ export default function Control() {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/study_room/:post_no" element={<StudyRoom />} />
           <Route path="/modify" element={<ModifyPage />} />
-          <Route path="/application" element={<StudyApplication />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="find" element={<FindUser />} />
+          <Route
+            path="/StudyDetailUpdate/:post_no"
+            element={<StudyDetailUpdate />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

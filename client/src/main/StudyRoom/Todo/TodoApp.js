@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { MdAddCircle } from 'react-icons/md';
 import axios from 'axios';
 
-let nextId = 4;
+let nextId = 1;
 
 const TodoApp = () => {
   const { post_no } = useParams();

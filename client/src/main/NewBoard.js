@@ -178,15 +178,6 @@ function NewBoard() {
             >
               <span className="postToggle_text">프로젝트</span>
             </li>
-
-            <li
-              className={`postToggle ${
-                selectedItem1 === "멘토/멘티" ? "clicked" : ""
-              }`}
-              onClick={() => handleItem1Click("멘토/멘티")}
-            >
-              <span className="postToggle_text">멘토/멘티</span>
-            </li>
           </ul>
           <br />
           <br />
@@ -206,9 +197,6 @@ function NewBoard() {
               setStudyContent={setStudyContent}
               setStartDate={setStartDate}
             />
-          ) : null}
-          {selectedItem1 === "멘토/멘티" ? (
-            <MentoMenti onDataChanged={handleDataFromChild} />
           ) : null}
         </section>
       </div>

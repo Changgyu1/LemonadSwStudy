@@ -1,9 +1,9 @@
-import Room from "../components/Room";
+import ChattingRoom from '../components/ChattingRoom';
 
 export default function ChattingPage() {
   return (
     <div>
-      <Room />
+      <ChattingRoom />
     </div>
   );
 }

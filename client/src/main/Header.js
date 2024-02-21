@@ -1,14 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../security/AuthContext";
 import { useEffect, useState } from "react";
-import { logout, isTokenAvailable } from "../token/tokenAxios";
+import { isTokenAvailable } from "../token/tokenAxios";
 import { useNavigate } from "react-router-dom";
 import usersUserinfoAxios from "../token/tokenAxios";
-
+import Modal from "./Modal";
 import "../css/Header.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Dropdown from "./Dropdown";
+import AlarmModal from "./AlarmModal";
 
 export default function Header() {
   const [userData, setUserData] = useState("");
@@ -42,6 +41,10 @@ export default function Header() {
       console.error("로그아웃 실패");
     }
   };
+  /////////////////////////////////////////////////////////////
+  const [alarm, setAlarm] = useState(false);
+  const [alarmUserNo, setAlarmUserNo] = useState(null);
+
   return (
     <header className="border-bottom border-light border-5 mb-5 p-2">
       <div className="container">
@@ -93,6 +96,14 @@ export default function Header() {
                         className="alarm_img"
                         src={process.env.PUBLIC_URL + "../img/bell.png"}
                         alt="alarm"
+                        onClick={(e) => {
+                          // 클릭한 유저의 user_no를 상태에 저장
+                          const clickedUserNo = userData.user_no;
+
+                          // 모달 열기 및 user_no 전달
+                          setAlarmUserNo(clickedUserNo);
+                          setAlarm(!alarm);
+                        }}
                       />
                     </div>
                   </div>
@@ -117,11 +128,13 @@ export default function Header() {
                 <li className="nav-item">
                   <div className="profile">
                     <div className="profile_1">
-                      <img
-                        className="profile_img"
-                        src={`data:image/jpeg;base64,${userData.user_profile}`}
-                        alt="profile"
-                      />
+                      <a className="nav-link" href="/mypage">
+                        <img
+                          className="profile_img"
+                          src={`data:image/jpeg;base64,${userData.user_profile}`}
+                          alt="profile"
+                        />
+                      </a>
                     </div>
                   </div>
                 </li>
@@ -142,6 +155,14 @@ export default function Header() {
           </nav>
         </div>
       </div>
+      {alarm && (
+        <Modal closeModal={() => setAlarm(!alarm)}>
+          <AlarmModal
+            userNo={alarmUserNo}
+            closeModal={() => setAlarm(!alarm)}
+          />
+        </Modal>
+      )}
     </header>
   );
 }
