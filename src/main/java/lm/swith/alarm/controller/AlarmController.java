@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "http://lemonadswith.store:8080")
 public class AlarmController {
 	private final AlarmService alarmService;
 	

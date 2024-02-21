@@ -47,7 +47,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "http://lemonadswith.store:8080")
 public class RegisterController {
 	private final KakaoService kakaoService;
 	private final UserService userService;
