@@ -48,7 +48,7 @@ function MainContent() {
     "Git",
     "Go",
     "GraphQL",
-    "Java_Script",
+    "Java Script",
     "Java",
     "Kotlin",
     "Kubernetes",
@@ -61,11 +61,11 @@ function MainContent() {
     "Python",
     "R",
     "React",
-    "React_Native",
+    "React Native",
     "Spring",
     "Svelte",
     "Swift",
-    "Type_Script",
+    "Type Script",
     "Unity",
     "Vue",
     "Zeplin",
@@ -275,7 +275,7 @@ function MainContent() {
 
   console.log(skills);
 
-  const recruits = ["프로젝트", "스터디"];
+  const recruits = ["프로젝트", "스터디", "멘토/멘티"];
 
   // 기술스택 핸들러
   const handleClickSkill = (skill) => {

@@ -7,8 +7,6 @@ import usersUserinfoAxios from "../token/tokenAxios";
 import axios from "axios";
 import StudyDetailUpdate from "./StudyDetailUpdate";
 import StudyApplication from "./StudyApplication";
-import Modal from "./Modal";
-import ProfileModal from "./ProfileModal";
 
 function StudyDetail() {
   const { post_no } = useParams(); // 동적 라우트 매개변수 가져오기
@@ -152,7 +150,7 @@ function StudyDetail() {
     if (result) {
       try {
         await usersUserinfoAxios.delete(
-          `/delete_comment/${post_no}/${comment.user_no}/${comment.comment_no}`,
+          `/delete_comment/${post_no}/${userData.user_no}/${comment.comment_no}`,
           {
             withCredentials: true,
           }
@@ -315,24 +313,18 @@ function StudyDetail() {
         const response = await usersUserinfoAxios.get(
           `/application_update/${post_no}`
         );
+        setApplicantData(response.data);
 
-        // Check if response.data is an array and has length > 0
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          const index = response.data.findIndex(
-            (item) => item.user_no === swithUser.user_no
+        // 데이터의 길이와 속성이 존재하는지 확인
+        if (
+          response.data.length > 0 &&
+          response.data[0].max_study_applicants !== undefined &&
+          response.data[0].accepted_applicants !== undefined
+        ) {
+          setPossibleApplicant(
+            response.data[0].max_study_applicants >
+              response.data[0].accepted_applicants
           );
-
-          // Check if the index is valid
-          if (
-            index !== -1 &&
-            response.data[index].max_study_applicants !== undefined &&
-            response.data[index].accepted_applicants !== undefined
-          ) {
-            setPossibleApplicant(
-              response.data[index].max_study_applicants >
-                response.data[index].accepted_applicants
-            );
-          }
         }
       } catch (error) {
         console.error("Failed applicant 데이터 가져오기 실패", error);
@@ -340,7 +332,7 @@ function StudyDetail() {
     };
 
     fetchApplicantData();
-  }, [post_no, swithUser.user_no]);
+  }, [post_no]);
 
   const [possibleApplicant, setPossibleApplicant] = useState(true);
 
@@ -348,14 +340,6 @@ function StudyDetail() {
 
   const impossibleMessage = (
     <button className="commentInput_buttonComplete_done">모집완료</button>
-  );
-
-  ///////////////////////
-  const [profile, setProfile] = useState(false);
-  const [profileUserNo, setProfileUserNo] = useState(null);
-
-  const index = applicantData.findIndex(
-    (item) => item.user_no === swithUser.user_no
   );
 
   return (
@@ -385,17 +369,6 @@ function StudyDetail() {
                 height="30px"
                 src={`data:image/jpeg;base64,${swithUser.user_profile}`}
                 alt="Profile"
-                onClick={(e) => {
-                  e.preventDefault(); // 기본 동작 막기 (링크 이동 방지)
-                  e.stopPropagation(); // 이벤트 전파 방지
-
-                  // 클릭한 유저의 user_no를 상태에 저장
-                  const clickedUserNo = swithUser.user_no;
-
-                  // 모달 열기 및 user_no 전달
-                  setProfileUserNo(clickedUserNo);
-                  setProfile(!profile);
-                }}
               />
               <div className="username">{detailPages.nickname}</div>
             </div>
@@ -451,16 +424,14 @@ function StudyDetail() {
               </li>
               <li className="studyContent_contentWrapper">
                 <span className="studyInfo_title">모집인원</span>
-                {applicantData[index] && (
-                  <span className="studyInfo_title_a">
-                    {applicantData[index].max_study_applicants}명
-                  </span>
-                )}
+                <span className="studyInfo_title_a">
+                  {applicantData?.[0]?.max_study_applicants}명
+                </span>
               </li>
               <li className="studyContent_contentWrapper">
                 <span className="studyInfo_title">시작예정일</span>
                 <span className="studyInfo_title_a">
-                  {new Date(detailPages.study_start).toLocaleDateString()}
+                  {detailPages.study_start}
                 </span>
               </li>
               <li className="studyContent_contentWrapper">
@@ -472,7 +443,7 @@ function StudyDetail() {
               <li className="studyContent_contentWrapper">
                 <span className="studyInfo_title">모집마감</span>
                 <span className="studyInfo_title_a">
-                  {new Date(detailPages.recruit_deadline).toLocaleDateString()}
+                  {detailPages.recruit_deadline}
                 </span>
               </li>
               <li className="studyContent_contentWrapper">
@@ -502,12 +473,13 @@ function StudyDetail() {
           </section>
         </section>
         <div className="postContent_wrapper">
-          <p className="postInfo"></p>
+          <h2 className="postInfo">{detailPages.study_title}</h2>
           <p className="postContent">{detailPages.study_content}</p>
         </div>
 
         <div style={{ paddingBottom: "80px" }}>
           <div className="commentInput">
+            댓글
             <ul className="commentList_CommentList">
               {detailPages.comments &&
                 [...detailPages.comments]
@@ -522,18 +494,6 @@ function StudyDetail() {
                             height="30px"
                             src={`data:image/jpeg;base64,${comment.user_profile}`}
                             alt="Profile"
-                            style={{ cursor: "pointer" }}
-                            onClick={(e) => {
-                              e.preventDefault(); // 기본 동작 막기 (링크 이동 방지)
-                              e.stopPropagation(); // 이벤트 전파 방지
-
-                              // 클릭한 유저의 user_no를 상태에 저장
-                              const clickedUserNo = comment.user_no;
-
-                              // 모달 열기 및 user_no 전달
-                              setProfileUserNo(clickedUserNo);
-                              setProfile(!profile);
-                            }}
                           />
                           <div className="commentItem_userNickname">
                             {comment.nickname}
@@ -561,32 +521,28 @@ function StudyDetail() {
                             </button>
                           </div>
                         ) : (
-                          <div style={{ display: "flex" }}>
-                            <div className="comment_list_box">
-                              {comment.comment_content}
-                            </div>
-                            <div className="comment_edit_box">
-                              {comment.user_no === userData.user_no && (
-                                <div>
-                                  <button
-                                    className="commentDelete_buttonComplete_list"
-                                    onClick={() => handleEditComment(comment)}
-                                  >
-                                    댓글 수정
-                                  </button>
-                                </div>
-                              )}
+                          <div>
+                            <p>{comment.comment_content}</p>
+                            {comment.user_no === userData.user_no && (
                               <div>
-                                {(userData.user_role === "ADMIN" ||
-                                  comment.user_no === userData.user_no) && (
-                                  <button
-                                    className="commentDelete_buttonComplete_list2"
-                                    onClick={() => handleDeleteComment(comment)}
-                                  >
-                                    댓글 삭제
-                                  </button>
-                                )}
+                                <button
+                                  className="commentDelete_buttonComplete"
+                                  onClick={() => handleEditComment(comment)}
+                                >
+                                  댓글 수정
+                                </button>
                               </div>
+                            )}
+                            <div>
+                              {(userData.user_role === "ADMIN" ||
+                                comment.user_no === userData.user_no) && (
+                                <button
+                                  className="commentDelete_buttonComplete"
+                                  onClick={() => handleDeleteComment(comment)}
+                                >
+                                  댓글 삭제
+                                </button>
+                              )}
                             </div>
                           </div>
                         )}
@@ -598,30 +554,14 @@ function StudyDetail() {
           <span className="commentInput_count"></span>
         </div>
         <div className="commentInput_container">
-          <div className="commentItem_avatarWrapper">
-            <img
-              className="commentInput_profile"
-              width="30px"
-              height="30px"
-              src={`data:image/jpeg;base64,${userData.user_profile}`}
-              alt="Profile"
-              style={{ cursor: "pointer" }}
-              onClick={(e) => {
-                e.preventDefault(); // 기본 동작 막기 (링크 이동 방지)
-                e.stopPropagation(); // 이벤트 전파 방지
-
-                // 클릭한 유저의 user_no를 상태에 저장
-                const clickedUserNo = userData.user_no;
-
-                // 모달 열기 및 user_no 전달
-                setProfileUserNo(clickedUserNo);
-                setProfile(!profile);
-              }}
-            />
-            <div className="commentItem_userNickname_list">
-              {userData.nickname}
-            </div>
-          </div>
+          <img
+            className="commentInput_profile"
+            width="30px"
+            height="30px"
+            src={`data:image/jpeg;base64,${userData.user_profile}`}
+            alt="Profile"
+          />
+          <div className="commentItem_userNickname">{userData.nickname}</div>
           <textarea
             class="commentInput_commentText"
             placeholder="댓글을 입력하세요."
@@ -637,6 +577,14 @@ function StudyDetail() {
           >
             댓글 등록
           </button>
+          {detailPages.user_no === userData.user_no && (
+            <button
+              className="commentInput_buttonComplete"
+              onClick={handleButtonClick}
+            >
+              게시글 수정하기
+            </button>
+          )}
           {(userData.user_role === "ADMIN" ||
             detailPages.user_no === userData.user_no) && (
             <button
@@ -648,17 +596,6 @@ function StudyDetail() {
           )}
         </div>
       </div>
-      {profile && (
-        <Modal closeModal={() => setProfile(!profile)}>
-          <ProfileModal
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-            }}
-            userNo={profileUserNo}
-          />
-        </Modal>
-      )}
     </div>
   );
 }

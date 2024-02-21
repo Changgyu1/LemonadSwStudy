@@ -132,29 +132,3 @@
 .nav-link {
   padding-top: 15px;
 }
-
-.alarm_title {
-  font-size: 23px;
-  font-family: "SejonghospitalBold", sans-serif;
-  color: #313131;
-}
-
-.alarm_link {
-  cursor: pointer;
-}
-
-.alarm_link:hover {
-  color: #ff9035;
-  cursor: pointer;
-}
-
-.alarm_content_div {
-  display: flex;
-}
-
-.delete_img_alarm {
-  width: 20px;
-  height: 20px;
-  margin-left: 7px;
-  margin-top: 3px;
-}

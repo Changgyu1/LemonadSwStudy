@@ -4,9 +4,7 @@ import Header from "./Header";
 import axios from "axios";
 import sample6_execDaumPostcode from "./KakaoAddress";
 import { useNavigate } from "react-router-dom";
-import { isTokenAvailable } from "../token/tokenAxios";
-import Footer from "./Footer";
-
+import { logout, isTokenAvailable } from "../token/tokenAxios";
 const UpdateUser = () => {
   //주소값
 
@@ -246,29 +244,11 @@ const UpdateUser = () => {
     <div>
       <Header />
       <div>
-        <h4
-          className="title"
-          style={{
-            marginBottom: "100px",
-            overflow: "hiddlen",
-            whiteSpace: "nowrap",
-          }}
-        >
-          프로필 수정하기
-        </h4>
+        <h4>프로필 수정하기</h4>
         <div>
           <div className="register_id m-3">
             <div className="two">
-              <h4
-                className="s_text"
-                style={{
-                  marginLeft: "40px",
-                  overflow: "hiddlen",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                프로필 사진(profile image)
-              </h4>
+              <h4 className="s_text">프로필 사진(profile image)</h4>
             </div>
             <label className="m-2"></label>
             <input
@@ -277,11 +257,6 @@ const UpdateUser = () => {
               accept="image/*" // 이미지 파일만 선택할 수 있도록 지정
               name="img"
               onChange={(e) => handleImageChange(e)}
-              style={{
-                marginRight: "10px",
-                overflow: "hiddlen",
-                whiteSpace: "nowrap",
-              }}
             />
             {/* 프로필 사진 미리보기를 위한 이미지 컨테이너 */}
             <div className="profile-image-container">
@@ -322,8 +297,6 @@ const UpdateUser = () => {
               name="login"
               className="btn round"
               style={{
-                fontFamily: "NPSfontBold",
-                fontSize: "18px",
                 backgroundColor: "#75ddff",
                 width: "200px",
                 height: "50px",
@@ -342,28 +315,10 @@ const UpdateUser = () => {
       <br />
       <br />
       <br />
-      <h4
-        className="title"
-        style={{
-          marginBottom: "50px",
-          overflow: "hiddlen",
-          whiteSpace: "nowrap",
-        }}
-      >
-        기본 정보 수정하기
-      </h4>
+      <h4>기본 정보 수정하기</h4>
       <br />
       <div className="two">
-        <h4
-          className="s_text"
-          style={{
-            marginLeft: "40px",
-            overflow: "hiddlen",
-            whiteSpace: "nowrap",
-          }}
-        >
-          닉네임(nick name)
-        </h4>
+        <h4 className="s_text">닉네임(nick name)</h4>
       </div>
 
       <div>
@@ -372,20 +327,13 @@ const UpdateUser = () => {
           name="nickname"
           value={userData.nickname}
           onChange={handleInputChange}
-          style={{
-            marginLeft: "170px",
-            overflow: "hiddlen",
-            whiteSpace: "nowrap",
-          }}
         />
         <button
           onClick={handleNickname}
           className="btn round"
           style={{
-            fontFamily: "SUITE-Regular",
-            fontSize: "18px",
             backgroundColor: "#ffffb5",
-            width: "150px",
+            width: "100px",
             height: "50px",
             margin: "10px",
             marginTop: "5px",
@@ -397,33 +345,20 @@ const UpdateUser = () => {
       </div>
 
       <div className="two">
-        <h4 className="s_text" style={{ marginLeft: "40px" }}>
-          주소(address)
-        </h4>
+        <h4 className="s_text">주소(address)</h4>
       </div>
       <div>
-        <input
-          type="text"
-          id="useraddress"
-          style={{
-            marginLeft: "170px",
-            overflow: "hiddlen",
-            whiteSpace: "nowrap",
-          }}
-        />
+        <input type="text" id="useraddress" />
         <input
           name="useraddress"
           className="btn round"
           style={{
-            fontFamily: "SUITE-Regular",
-            fontSize: "18px",
             backgroundColor: "#ffffb5",
             width: "150px",
             height: "50px",
             margin: "10px",
             marginTop: "5px",
             borderRadius: "30px",
-            marginLeft: "10px",
           }}
           type="button"
           value="주소 찾기"
@@ -431,16 +366,7 @@ const UpdateUser = () => {
         />
       </div>
       <div className="two">
-        <h4
-          className="s_text"
-          style={{
-            marginLeft: "40px",
-            overflow: "hiddlen",
-            whiteSpace: "nowrap",
-          }}
-        >
-          자기소개(self introduction)
-        </h4>
+        <h4 className="s_text">자기소개(self introduction)</h4>
       </div>
       <div>
         <input
@@ -448,7 +374,6 @@ const UpdateUser = () => {
           name="user_introduction"
           value={userData.user_introduction}
           onChange={handleInputChange}
-          style={{ marginRight: "0px" }}
         />
       </div>
       <button
@@ -457,8 +382,6 @@ const UpdateUser = () => {
         name="login"
         className="btn round"
         style={{
-          fontFamily: "SUITE-Regular",
-          fontSize: "18px",
           backgroundColor: "#75ddff",
           width: "200px",
           height: "50px",
@@ -475,30 +398,8 @@ const UpdateUser = () => {
       <br />
       <br />
       <div>
-        <h4
-          className="title"
-          style={{
-            marginBottom: "50px",
-            overflow: "hiddlen",
-            whiteSpace: "nowrap",
-          }}
-        >
-          비밀번호 수정하기{" "}
-        </h4>
-        <div className="two">
-          <h4
-            className="s_text"
-            style={{
-              marginLeft: "1%",
-              overflow: "hiddlen",
-              whiteSpace: "nowrap",
-              fontFamily: "SUITE-Regular",
-              fontSize: "18px",
-            }}
-          >
-            영문자,숫자,특수문자를 포함한 8자 이상의 비밀번호
-          </h4>
-        </div>
+        <h4>비밀번호 수정하기 </h4>
+        <a>영문자,숫자,특수문자를 포함한 8자 이상의 비밀번호</a>
         <br />
         <input
           className="textInput"
@@ -516,17 +417,14 @@ const UpdateUser = () => {
           value={confirmPassword}
           autoComplete="off"
           onChange={handlePasswordChange}
-          style={{ marginLeft: "180px" }}
         />
         <button
           disabled={isButtonDisabled}
           onClick={handleConfirmPassword}
           className="btn round"
           style={{
-            fontFamily: "SUITE-Regular",
-            fontSize: "18px",
             backgroundColor: "#ffffb5",
-            width: "165px",
+            width: "100px",
             height: "50px",
             margin: "10px",
             marginTop: "5px",
@@ -542,8 +440,6 @@ const UpdateUser = () => {
           name="login"
           className="btn round"
           style={{
-            fontFamily: "SUITE-Regular",
-            fontSize: "18px",
             backgroundColor: "#75ddff",
             width: "200px",
             height: "50px",
@@ -559,28 +455,11 @@ const UpdateUser = () => {
         <br />
         <br />
         <br />
-        <button
-          onClick={handleDelete}
-          className="btn round"
-          style={{
-            fontFamily: "SUITE-Regular",
-            fontSize: "18px",
-            backgroundColor: "#FFB9E4",
-            width: "200px",
-            height: "50px",
-            margin: "10px",
-            marginTop: "20px",
-            marginBottom: "10px",
-            borderRadius: "30px",
-          }}
-        >
-          회원 탈퇴하기
-        </button>
+        <button onClick={handleDelete}>회원 탈퇴하기</button>
         <br />
         <br />
         <br />
       </div>
-      <Footer />
     </div>
   );
 };

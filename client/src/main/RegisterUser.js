@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Header from "./Header";
 import "../css/RegisterUser.css";
 import Required from "./img/required.png";
 import sample6_execDaumPostcode from "./KakaoAddress";
 import girl from "../main/img/girl.png";
-import Footer from "./Footer";
 import UserAxios from "../token/tokenAxios"
 
 function RegisterUser() {
-  const [number, setNumber] = useState(""); //보낸 난수
+  const [number, setNumber] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const navigate = useNavigate();
 
   const [data, setData] = useState([]);
-  const [confirm, setConfirm] = useState(""); //인증 input값
+  const [confirm, setConfirm] = useState("");
   const [confirmNickname, setConfirmNickname] = useState("");
-  const [isVisible, setIsVisible] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [isButtonDisabled1, setIsButtonDisabled1] = useState(false);
   const [swithUser, setNewUser] = useState({
@@ -30,45 +29,6 @@ function RegisterUser() {
     user_introduction: "",
     role: "",
   });
-
-  //이용약관
-  const [allAgree, setAllAgree] = useState(false);
-  const [Agreements, setAgreements] = useState({
-    all: false,
-    terms: false,
-    personalInfo: false,
-    provision: false,
-    location: false,
-  });
-
-  const handleAgreementChange = (e) => {
-    // 개별 동의
-    const { name, checked } = e.target;
-    setAgreements((prevAgreements) => ({ ...prevAgreements, [name]: checked }));
-
-    const allChecked = Object.values({ ...Agreements, [name]: checked }).every(
-      (value) => value === true
-    );
-
-    if (allChecked) {
-      setAllAgree(true);
-    }
-  };
-
-  const handleAllAgreementChange = (e) => {
-    const { checked } = e.target;
-    setAgreements((prevAgreements) =>
-      Object.keys(prevAgreements).reduce((newAgreements, AgreementKey) => ({
-        ...newAgreements,
-        [AgreementKey]: checked,
-      }))
-    );
-    setAllAgree(checked);
-  };
-
-  const handleToggle = () => {
-    setIsVisible(!isVisible);
-  };
 
   const handleInputChange = (e) => {
     //e 자리값 밑에 target
@@ -123,7 +83,6 @@ function RegisterUser() {
       );
 
       setConfirmNickname(response.data.toString());
-      console.log(response.data + " ㅎㅇ?");
       if (response.data !== "existsNick") {
         alert("사용 가능한 닉네임입니다.");
         setConfirmNickname("new");
@@ -181,8 +140,7 @@ function RegisterUser() {
     if (
       isButtonDisabled === true &&
       swithUser.password === confirmPassword &&
-      confirmNickname === "new" &&
-      allAgree === true
+      confirmNickname === "new"
     ) {
       try {
         //변경된 데이터 값 저장
@@ -241,73 +199,62 @@ function RegisterUser() {
       <h1 className="title">회원가입</h1>
       <br></br>
       <h3 className="subTitle">회원가입후 S.With에 참여하세요</h3>
-
       <div className="container_register">
         <form className="m-5 mb-1">
           <div className="register_id ml-5">
             <div className="two">
-              <h4 className="register_s_text_id">
+              <h4 className="s_text_id">
                 아이디(email)
                 <img src={Required} className="required_img" />
               </h4>
             </div>
-
-            <div style={{ position: "relative" }}>
-              <input
-                className="textInput"
-                type="text"
-                name="email"
-                value={swithUser.email}
-                onChange={handleInputChange}
-                required
-              />
-
-              <button
-                onClick={handleEmail}
-                className="btn round"
-                style={{
-                  backgroundColor: "#ffffb5",
-                  width: "170px",
-                  height: "50px",
-                  margin: "10px",
-                  marginTop: "5px",
-                  borderRadius: "30px",
-                  position: "absolute",
-                  fontFamily: "SUITE-Regular",
-                  fontSize: "18px",
-                }}
-              >
-                이메일 인증하기
-              </button>
-            </div>
+            <label className="m-2"></label>
+            <input
+              className="textInput"
+              type="text"
+              name="email"
+              value={swithUser.email}
+              onChange={handleInputChange}
+              required
+            />
+            <button
+              onClick={handleEmail}
+              className="btn round"
+              style={{
+                backgroundColor: "#ffffb5",
+                width: "100px",
+                height: "50px",
+                margin: "10px",
+                marginTop: "5px",
+                borderRadius: "30px",
+              }}
+            >
+              인증하기
+            </button>
             <br />
-            <div style={{ position: "relative" }}>
-              <input
-                type="text"
-                name="number"
-                className="textInput"
-                value={number}
-                onChange={handleNumberChange}
-              />
-              <button
-                disabled={isButtonDisabled}
-                onClick={handleConfirm}
-                className="btn round"
-                style={{
-                  backgroundColor: "#ffffb5",
-                  width: "170px",
-                  height: "50px",
-                  margin: "10px",
-                  marginTop: "5px",
-                  borderRadius: "30px",
-                  position: "absolute",
-                  fontFamily: "SUITE-Regular",
-                  fontSize: "18px",
-                }}
-              >
-                이메일 인증확인
-              </button>
-            </div>
+            <input
+              type="text"
+              name="number"
+              className="textInput_check"
+              value={number}
+              onChange={handleNumberChange}
+            />
+            <button
+              disabled={isButtonDisabled}
+              onClick={handleConfirm}
+              className="btn round"
+              style={{
+                backgroundColor: "#ffffb5",
+                width: "100px",
+                height: "50px",
+                margin: "10px",
+                marginTop: "5px",
+                borderRadius: "30px",
+              }}
+            >
+              인증확인
+            </button>
+            <br />
           </div>
           <div className="register_id m-3">
             <div className="two">
@@ -315,11 +262,10 @@ function RegisterUser() {
                 비밀번호(password)
                 <img src={Required} className="required_img" />
               </h4>
-              <p className="register_password_massage">
-                영문자,숫자,특수문자를 포함한 8자 이상의 비밀번호
-              </p>
+              <a>영문자,숫자,특수문자를 포함한 8자 이상의 비밀번호</a>
             </div>
-
+            <label className="m-2"></label>
+            <br />
             <input
               className="textInput"
               type="password"
@@ -330,36 +276,29 @@ function RegisterUser() {
               required
             />
             <br />
-            <div style={{ position: "relative" }}>
-              <input
-                className="textInput"
-                type="password"
-                name="confirmPassword"
-                value={confirmPassword}
-                autoComplete="off"
-                onChange={handlePasswordChange}
-                placeholder="비밀번호를 한번 더 입력해주세요."
-              />
-
-              <button
-                disabled={isButtonDisabled1}
-                onClick={handleConfirmPassword}
-                className="btn round"
-                style={{
-                  backgroundColor: "#ffffb5",
-                  width: "170px",
-                  height: "50px",
-                  margin: "10px",
-                  marginTop: "5px",
-                  borderRadius: "30px",
-                  position: "absolute",
-                  fontFamily: "SUITE-Regular",
-                  fontSize: "18px",
-                }}
-              >
-                비밀번호 일치확인
-              </button>
-            </div>
+            <input
+              className="textInput"
+              type="password"
+              name="confirmPassword"
+              value={confirmPassword}
+              autoComplete="off"
+              onChange={handlePasswordChange}
+            />
+            <button
+              disabled={isButtonDisabled1}
+              onClick={handleConfirmPassword}
+              className="btn round"
+              style={{
+                backgroundColor: "#ffffb5",
+                width: "100px",
+                height: "50px",
+                margin: "10px",
+                marginTop: "5px",
+                borderRadius: "30px",
+              }}
+            >
+              비밀번호 일치확인
+            </button>
           </div>
 
           <div className="register_id m-3">
@@ -386,34 +325,29 @@ function RegisterUser() {
                 <img src={Required} className="required_img" />
               </h4>
             </div>
-            <div style={{ position: "relative" }}>
-              <input
-                className="textInput"
-                type="text"
-                name="nickname"
-                value={swithUser.nickname}
-                onChange={handleInputChange}
-                required
-              />
-
-              <button
-                onClick={handleNickname}
-                className="btn round"
-                style={{
-                  backgroundColor: "#ffffb5",
-                  width: "170px",
-                  height: "50px",
-                  margin: "10px",
-                  marginTop: "5px",
-                  borderRadius: "30px",
-                  position: "absolute",
-                  fontFamily: "SUITE-Regular",
-                  fontSize: "18px",
-                }}
-              >
-                닉네임 중복확인
-              </button>
-            </div>
+            <label className="m-2"></label>
+            <input
+              className="textInput"
+              type="text"
+              name="nickname"
+              value={swithUser.nickname}
+              onChange={handleInputChange}
+              required
+            />
+            <button
+              onClick={handleNickname}
+              className="btn round"
+              style={{
+                backgroundColor: "#ffffb5",
+                width: "100px",
+                height: "50px",
+                margin: "10px",
+                marginTop: "5px",
+                borderRadius: "30px",
+              }}
+            >
+              닉네임 중복확인
+            </button>
           </div>
           <div className="register_id m-3">
             <div className="two">
@@ -421,8 +355,7 @@ function RegisterUser() {
             </div>
             <label className="m-2"></label>
             <input
-              className="textInput"
-              style={{ paddingTop: "7px" }}
+              className="image_input"
               type="file"
               accept="image/*" // 이미지 파일만 선택할 수 있도록 지정
               name="img"
@@ -446,30 +379,25 @@ function RegisterUser() {
                 <img src={Required} className="required_img" />
               </h4>
             </div>
-
-            <div style={{ position: "relative" }}>
-              <input type="text" id="useraddress" className="textInput" />
-
-              <input
-                name="useraddress"
-                className="btn round"
-                style={{
-                  backgroundColor: "#ffffb5",
-                  width: "150px",
-                  height: "50px",
-                  margin: "10px",
-                  marginTop: "5px",
-                  borderRadius: "30px",
-                  position: "absolute",
-                  fontFamily: "SUITE-Regular",
-                  fontSize: "18px",
-                }}
-                type="button"
-                value="주소 찾기"
-                onClick={() => sample6_execDaumPostcode({ setNewUser })}
-                required
-              />
-            </div>
+            <label className="m-2"></label>
+            <input type="text" id="useraddress" />
+            <br />
+            <input
+              name="useraddress"
+              className="btn round"
+              style={{
+                backgroundColor: "#ffffb5",
+                width: "150px",
+                height: "50px",
+                margin: "10px",
+                marginTop: "5px",
+                borderRadius: "30px",
+              }}
+              type="button"
+              value="주소 찾기"
+              onClick={() => sample6_execDaumPostcode({ setNewUser })}
+              required
+            />
           </div>
 
           <div className="register_id m-3">
@@ -477,8 +405,8 @@ function RegisterUser() {
               <h4 className="s_text">자기소개(self introduction)</h4>
             </div>
             <label className="m-2"></label>
-            <textarea
-              className="textInput_intro"
+            <input
+              className="textInput"
               type="text"
               name="user_introduction"
               value={swithUser.user_introduction}
@@ -495,79 +423,6 @@ function RegisterUser() {
               hidden={true}
             />
           </div>
-          <br />
-          <section className="agreement_section ">
-            <div className={isVisible ? "visible" : "visible"}>
-              <ul>
-                <li className="agreement_allcheck_li">
-                  <label htmlFor="agreement_allcheck">이용약관 전체동의</label>
-                  <input
-                    className="agreement_checkbox"
-                    type="checkbox"
-                    id="agreement_allcheck"
-                    name="agreement_allcheck"
-                    checked={allAgree}
-                    onChange={handleAllAgreementChange}
-                  />
-                </li>
-                <li>
-                  <label htmlFor="agreement_terms"> 이용약관 동의 [필수]</label>
-                  <input
-                    className="agreement_checkbox"
-                    type="checkbox"
-                    id="agreement_terms"
-                    name="terms"
-                    required
-                    checked={Agreements.terms}
-                    onChange={handleAgreementChange}
-                  />
-                </li>
-                <li>
-                  <label htmlFor="agreement_personalInfo">
-                    개인정보 이용 수집 동의 [필수]
-                  </label>
-                  <input
-                    className="agreement_checkbox"
-                    type="checkbox"
-                    id="agreement_personalInfo"
-                    name="personalInfo"
-                    required
-                    checked={Agreements.personalInfo}
-                    onChange={handleAgreementChange}
-                  />
-                </li>
-                <li>
-                  <label htmlFor="agreement_provision">
-                    개인정보 제 3자 제공 동의 [필수]
-                  </label>
-                  <input
-                    className="agreement_checkbox"
-                    type="checkbox"
-                    id="agreement_provision"
-                    name="provision"
-                    required
-                    checked={Agreements.provision}
-                    onChange={handleAgreementChange}
-                  />
-                </li>
-                <li>
-                  <label htmlFor="agreement_location">
-                    위치정보 동의 약관 [필수]
-                  </label>
-                  <input
-                    className="agreement_checkbox"
-                    type="checkbox"
-                    id="agreement_location"
-                    name="location"
-                    required
-                    checked={Agreements.location}
-                    onChange={handleAgreementChange}
-                  />
-                </li>
-              </ul>
-            </div>
-          </section>
-          <br />
           <button
             onClick={handleAddUser}
             type="button"
@@ -581,8 +436,6 @@ function RegisterUser() {
               marginTop: "20px",
               marginBottom: "10px",
               borderRadius: "30px",
-              fontFamily: "SUITE-Regular",
-              fontSize: "18px",
             }}
           >
             회원가입 완료
@@ -600,8 +453,6 @@ function RegisterUser() {
               margin: "10px",
               marginTop: "20px",
               borderRadius: "30px",
-              fontFamily: "SUITE-Regular",
-              fontSize: "18px",
             }}
           >
             카카오 로그인
@@ -617,8 +468,6 @@ function RegisterUser() {
               height: "50px",
               margin: "10px",
               borderRadius: "30px",
-              fontFamily: "SUITE-Regular",
-              fontSize: "18px",
             }}
           >
             Github 로그인
@@ -632,7 +481,6 @@ function RegisterUser() {
       <br></br>
       <br></br>
       <br></br>
-      <Footer />
     </div>
   );
 }

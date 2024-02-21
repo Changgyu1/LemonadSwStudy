@@ -1,0 +1,113 @@
+@font-face {
+  font-family: "SejonghospitalBold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/SejonghospitalBold.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SUITE-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+.notice {
+  font-size: 45px;
+  font-family: "SejonghospitalBold";
+  margin-right: -28%;
+}
+.notice_part {
+}
+.notice_box_section {
+  max-height: 450px; /* 스크롤이 보이기 전에 최대 높이 설정 */
+  width: 70%;
+  overflow-y: auto; /* Y축 스크롤 활성화 */
+  margin-left: 20%;
+  margin-right: 30%; /* 기본 패딩 제거 */
+  list-style: none; /* 기본 리스트 스타일 제거 */
+}
+
+.notice_list {
+  margin-bottom: 20px; /* 각 항목 간격 설정 */
+  border: 3px solid #b9eeff;
+  border-radius: 30px;
+  padding: 10px; /* 내부 패딩 설정 */
+  width: 50%;
+  height: 350px;
+  margin-left: 10%;
+}
+.notice_title {
+  font-size: 30px;
+  font-family: "SUITE-Regular";
+  color: #333;
+  font-weight: bolder;
+  margin-top: 2%;
+}
+.notice_writer_info {
+  font-size: 12px;
+  display: flex;
+}
+.notice_content {
+  font-size: 18px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 2%;
+}
+.notice_delete {
+  padding-bottom: 10px;
+  margin-top: 2%;
+  border: none;
+  float: right;
+  margin-left: 60%;
+  display: flex;
+}
+.notice_x_button {
+  color: #000000;
+  border: none;
+  font-size: 12px;
+  font-weight: bolder;
+  background-color: #b9eeff;
+  float: right;
+  width: 40px;
+  height: 23px;
+  margin-left: 3px;
+  margin-top: 8px;
+}
+.notice_password_input {
+  width: 70px;
+  height: 20px;
+}
+
+.Modal_btn {
+  margin-left: 10%;
+  margin-right: 25%;
+}
+
+.studyRoom_skills {
+  margin-left: 70%;
+}
+
+.DayCount {
+  font-size: 30px;
+  color: #333;
+  font-family: "SejonghospitalBold", sans-serif;
+}
+
+.DayCount_startDay {
+  font-size: 22px;
+  color: #717171;
+  margin-right: 36px;
+  font-family: "SejonghospitalBold", sans-serif;
+}
+
+.writer_info_p {
+  width: 40%;
+  margin-top: 2%;
+  font-family: "SUITE-Regular";
+  font-size: 17px;
+  color: #333;
+  font-weight: bolder;
+  float: left;
+}

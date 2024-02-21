@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./Header";
 import MainPage from "./MainPage";
 import NewBoard from "./NewBoard";
@@ -7,21 +7,22 @@ import Login from "./Login";
 import RegisterUser from "./RegisterUser";
 import StudyDetail from "./StudyDetail";
 import MyPage from "./MyPage";
-import StudyRoom from "../main/StudyRoom/Room";
+import StudyRoom from "./StudyRoom/Room";
 import ModifyPage from "./ModifyPage";
-import FindUser from "./FindUser";
-import Admin from "./Admin";
-import StudyDetailUpdate from "./StudyDetailUpdate";
+import StudyApplication from "./StudyApplication";
 
 // function AuthenticatedRoute({ children }) {
 //   const authContext = useAuth();
+
 //   if (authContext.isAuthenticated) return children;
+
 //   return <Navigate to="/" />;
 // }
 
 export default function Control() {
   return (
     <div className="Main">
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/new" element={<NewBoard />} />
@@ -32,13 +33,9 @@ export default function Control() {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/study_room/:post_no" element={<StudyRoom />} />
           <Route path="/modify" element={<ModifyPage />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="find" element={<FindUser />} />
-          <Route
-            path="/StudyDetailUpdate/:post_no"
-            element={<StudyDetailUpdate />}
-          />
+          <Route path="/application" element={<StudyApplication />} />
         </Routes>
+      </BrowserRouter>
     </div>
   );
 }

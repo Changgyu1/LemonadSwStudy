@@ -4,7 +4,6 @@ import Header from "./Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/LoginTest.css";
 import LoginAxios from "../token/tokenAxios";
-import Footer from "./Footer";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -38,7 +37,7 @@ function Login() {
   const checkLoginStatus = async () => {
     try {
       // 서버에 현재 인증된 사용자의 정보를 가져오는 요청을 보냅니다.
-      const response = await LoginAxios.get("/userinfo");
+      const response = await LoginAxios.get("/users/userinfo");
 
       // 서버에서 반환된 사용자 정보를 가져옵니다.
       const user = response.data;
@@ -110,8 +109,6 @@ function Login() {
                   height: "50px",
                   margin: "20px",
                   borderRadius: "30px",
-                  fontFamily: "SUITE-Regular",
-                  fontSize: "18px",
                 }}
               >
                 login
@@ -130,8 +127,6 @@ function Login() {
                   margin: "10px",
                   marginTop: "20px",
                   borderRadius: "30px",
-                  fontFamily: "SUITE-Regular",
-                  fontSize: "18px",
                 }}
               >
                 카카오 로그인
@@ -148,8 +143,6 @@ function Login() {
                   height: "50px",
                   margin: "10px",
                   borderRadius: "30px",
-                  fontFamily: "SUITE-Regular",
-                  fontSize: "18px",
                 }}
               >
                 Github 로그인
@@ -159,53 +152,11 @@ function Login() {
           <br></br>
           <div className="loginButton">
             <li>
-              <a href="/register">
-                <button
-                  type="button"
-                  className="btn round"
-                  style={{
-                    backgroundColor: "#ffb9e4",
-                    width: "350px",
-                    height: "50px",
-                    margin: "10px",
-                    borderRadius: "30px",
-                    fontFamily: "SUITE-Regular",
-                    fontSize: "18px",
-                  }}
-                >
-                  S.With 회원가입하기
-                </button>
-              </a>
-            </li>
-            <li>
-              <a href="/find">
-                <button
-                  type="button"
-                  className="btn round"
-                  style={{
-                    backgroundColor: "#ffb9e4",
-                    width: "350px",
-                    height: "50px",
-                    margin: "10px",
-                    borderRadius: "30px",
-                    fontFamily: "SUITE-Regular",
-                    fontSize: "18px",
-                  }}
-                >
-                  S.With 아이디/비밀번호 찾기
-                </button>
-              </a>
+              <a href="/register">S.With 회원가입하기</a>
             </li>
           </div>
         </div>
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <Footer />
     </div>
   );
 }

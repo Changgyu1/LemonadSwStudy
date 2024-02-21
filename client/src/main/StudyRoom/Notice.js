@@ -3,7 +3,7 @@ import "../../css/MainPageCss.css";
 import { useParams } from "react-router-dom";
 import usersUserinfoAxios from "../../token/tokenAxios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../css/Notice.css";
+import "./css/Notice.css";
 import StudyRoomTitle from "./StudyRoomTitle";
 //select
 //delete = password이용 해서 삭제
@@ -114,8 +114,8 @@ const Notice = () => {
               {" "}
               {/* selNotice.notice_no 를 key값으로 설정한다 */}
               <div className="notice_writer_info">
-                <p className="notice_p">
-                  작성일 : {selNotice.notice_post_date}{" "}
+                <div className="writer_info_p">
+                  <p>작성일 : {selNotice.notice_post_date} </p>
                   {/* 프로필 이미지 가져오는건 나중에하자 .. 
                 <div className="board_info_left">
                   
@@ -131,48 +131,53 @@ const Notice = () => {
           </div>
                   <div>{userData.nickname}</div>
                 </div>*/}
-                  &nbsp;&nbsp;&nbsp;&nbsp;작성자 :{selNotice.nickname}{" "}
-                </p>
-                <section>
-                  <div className="notice_delete">
-                    {showInput && selectedNoticeKey === selNotice.notice_no && (
-                      <>
-                        <input
-                          className="notice_password_input"
-                          type="password"
-                          name="notice_password"
-                          maxLength="4"
-                          onChange={handleInputChange}
-                          placeholder="비밀번호 4자리"
-                        />
-                        <button
-                          className="notice_x_button "
-                          onClick={(e) => {
-                            handleDeleteNotice(e, selNotice);
-                          }}
-                        >
-                          삭제
-                        </button>
-                      </>
-                    )}
-                    {/* 'X' 버튼은 누르면 안보이게 */}
-                    <button
-                      className="notice_x_button "
-                      onClick={() => {
-                        setShowInput((prevShowInput) => !prevShowInput);
-                        setSelectedNoticeKey(selNotice.notice_no);
-                      }}
-                      style={{
-                        display:
-                          showInput && selectedNoticeKey === selNotice.notice_no
-                            ? "none"
-                            : "block",
-                      }}
-                    >
-                      삭제
-                    </button>
-                  </div>
-                </section>
+                  <p
+                    style={{
+                      flex: "left",
+                      marginTop: "1%",
+                      marginLeft: "3%",
+                    }}
+                  >
+                    작성자 :{selNotice.nickname}
+                  </p>
+                </div>
+                <div className="notice_delete">
+                  {showInput && selectedNoticeKey === selNotice.notice_no && (
+                    <>
+                      <input
+                        className="notice_password_input"
+                        type="password"
+                        name="notice_password"
+                        maxLength="4"
+                        onChange={handleInputChange}
+                      />
+                      <button
+                        className="notice_x_button "
+                        onClick={(e) => {
+                          handleDeleteNotice(e, selNotice);
+                        }}
+                      >
+                        삭제
+                      </button>
+                    </>
+                  )}
+                  {/* 'X' 버튼은 누르면 안보이게 */}
+                  <button
+                    className="notice_x_button "
+                    onClick={() => {
+                      setShowInput((prevShowInput) => !prevShowInput);
+                      setSelectedNoticeKey(selNotice.notice_no);
+                    }}
+                    style={{
+                      display:
+                        showInput && selectedNoticeKey === selNotice.notice_no
+                          ? "none"
+                          : "block",
+                    }}
+                  >
+                    삭제
+                  </button>
+                </div>
               </div>
               <h1 className="notice_title">{selNotice.notice_title}</h1>
               <div className="board_content_border"></div>

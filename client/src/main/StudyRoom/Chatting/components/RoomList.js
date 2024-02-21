@@ -22,11 +22,7 @@ export default function RoomList() {
 
   return (
     <div>
-      <button
-        type="button"
-        disabled={!connected}
-        onClick={handleClickQuitRoom}
-      >
+      <button type="button" disabled={!connected} onClick={handleClickQuitRoom}>
         연결 종료
       </button>
     </div>

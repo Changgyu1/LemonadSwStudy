@@ -2,20 +2,8 @@ import React, { useEffect } from "react";
 import { isTokenAvailable, logout } from "./token/tokenAxios";
 import { jwtDecode } from "jwt-decode"; // npm install jwt-decode
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Header from "./main/Header";
-import MainPage from "./main/MainPage";
-import NewBoard from "./main/NewBoard";
-import Logout from "./main/Logout";
-import Login from "./main/Login";
-import RegisterUser from "./main/RegisterUser";
-import StudyDetail from "./main/StudyDetail";
-import MyPage from "./main/MyPage";
-import StudyRoom from "./main/StudyRoom/Room";
-import ModifyPage from "./main/ModifyPage";
-import FindUser from "./main/FindUser";
-import Admin from "./main/Admin";
-import StudyDetailUpdate from "./main/StudyDetailUpdate";
+import Control from "./main/Control";
+import RoomEnd from "./main/StudyRoom/StudyRoom/RoomEnd";
 const App = () => {
   useEffect(() => {
     const checkTokenExpiration = () => {
@@ -52,24 +40,9 @@ const App = () => {
   }, []);
 
   return (
-    <div className="Main">
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/new" element={<NewBoard />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/register" element={<RegisterUser />} />
-          <Route path="/post_detail/:post_no" element={<StudyDetail />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/study_room/:post_no" element={<StudyRoom />} />
-          <Route path="/modify" element={<ModifyPage />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="find" element={<FindUser />} />
-          <Route
-            path="/StudyDetailUpdate/:post_no"
-            element={<StudyDetailUpdate />}
-          />
-        </Routes>
+    <div className="App">
+      <Control />
+      <RoomEnd />
     </div>
   );
 };

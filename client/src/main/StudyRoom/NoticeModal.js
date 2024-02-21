@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../css/Notice.css";
+import "./css/Notice.css";
 function NoticeModal() {
   const { post_no } = useParams();
   const [notice, setNotice] = useState({
@@ -79,15 +79,14 @@ function NoticeModal() {
     <div>
       <div>
         <h4 className="notice">
-          Notice 💡
+          Notice 📢
           <Button
-            className="notice_btn"
+            className="Modal_btn"
             variant="outline-primary"
             onClick={handleShow}
           >
-            공지글 +
+            공지글+
           </Button>
-          Chatting 💬
         </h4>
       </div>
 
@@ -106,9 +105,8 @@ function NoticeModal() {
               value={userData.user_no}
               onChange={handleInputChange}
             />
-            <div className="notice_modal_title">공지글 제목 :</div>
+            공지글 제목 :
             <input
-              className="notice_title_textInput"
               type="text"
               name="notice_title"
               value={notice.notice_title}
@@ -119,9 +117,9 @@ function NoticeModal() {
         </Modal.Header>
         <Modal.Body>
           {" "}
-          <div className="notice_modal_content">내용 :</div>
+          내용 :
           <input
-            className="notice_content_textInput"
+            className="textInput"
             type="text"
             name="notice_content"
             value={notice.notice_content}
@@ -130,9 +128,8 @@ function NoticeModal() {
           />
         </Modal.Body>
         <Modal.Footer>
-          <div className="notice_title_password"> 비밀번호(숫자4자리) </div>
+          비밀번호(숫자4자리)
           <input
-            className="notice_modal_password"
             type="password"
             name="notice_password"
             maxLength="4"

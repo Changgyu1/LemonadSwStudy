@@ -4,8 +4,11 @@ import "../css/Admin.css";
 import Header from "./Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SearchIcon from "./img/search.png";
+import DeleteIcon from "./img/delete.png";
+import axios from "axios";
 import usersUserinfoAxios from "../token/tokenAxios";
-import { Link } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 export default function Admin() {
   const [nickname, setNickname] = useState("");
@@ -90,36 +93,16 @@ export default function Admin() {
     fetchUserData();
   }, []);
 
-  //select SignOut User
-  const [selUser, setSelUser] = useState([]);
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await usersUserinfoAxios.get(
-          `/users/selectDeleteUser`
-        );
-        setSelUser(response.data);
-        console.log(response.data); // 확인용 로그
-      } catch (error) {
-        console.error("failed to fetch SignOut User data", error);
-      }
-    };
-    fetchUser();
-  }, []);
-
   // 유저 삭제
 
   const [deleteUsers, setDeleteUsers] = useState("");
 
-  const deleteUser = async (selUser) => {
+  const deleteUser = async (user) => {
     let result = window.confirm("회원을 탈퇴 시키겠습니까?");
     if (result) {
       try {
-        const response = await usersUserinfoAxios.post(
-          `/users/deleteAdmin/${selUser.user_no}`,
-          {
-            withCredentials: true,
-          }
+        const response = await usersUserinfoAxios.delete(
+          `/delete_user/${user.user_no}`
         );
         setDeleteUsers(response.data);
         alert("유저 삭제 성공");
@@ -284,45 +267,6 @@ export default function Admin() {
                   <td>{user.nickname}</td>
                 </tr>
               ))
-            )}
-          </tbody>
-        </table>
-      </div>
-
-      <div>
-        <h2 className="admin_page_margin">탈퇴 대기 유저 </h2>
-        <table className="admin_page_margin">
-          <thead>
-            <tr>
-              <th>유저 번호</th>
-              <th>이메일</th>
-              <th>활동 중인 스터디방</th>
-            </tr>
-          </thead>
-          <tbody>
-            {selUser.length > 0 &&
-            selUser.filter((item) => item.signout === "TRUE").length > 0 ? (
-              selUser.map((selUser) => (
-                <tr key={selUser.user_no}>
-                  <td>{selUser.user_no}</td>
-                  <td>{selUser.email}</td>
-                  <td>
-                    {/* 유저가 속한 방 띄우기 */}
-                    {selUser.studyPost && selUser.studyPost.post_no !== null ? (
-                      <>{selUser.studyPost.post_no} </>
-                    ) : (
-                      <button
-                        className="admin_page_button"
-                        onClick={() => deleteUser(selUser)}
-                      >
-                        삭제
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <p>탈퇴 승인 대기 중인 유저가 없습니다.</p>
             )}
           </tbody>
         </table>

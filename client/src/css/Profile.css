@@ -9,13 +9,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
 }
 
 /* modal창 */
 .modalBody {
   position: absolute;
-  width: 460px;
+  width: 400px;
   height: 500px;
   padding: 40px;
   text-align: center;
@@ -52,16 +51,4 @@
 
 .swith_title {
   font-family: "NPSfontBold";
-}
-
-.alarm_date {
-  font-size: 15px;
-  font-family: "NPSfontBold";
-  width: 135px;
-}
-
-.alarm_message {
-  font-size: 16px;
-  font-family: "SUITE-Regular";
-  width: 300px;
 }
