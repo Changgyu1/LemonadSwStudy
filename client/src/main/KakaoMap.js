@@ -5,7 +5,6 @@ import usersUserinfoAxios from "../token/tokenAxios";
 import home from "./img/home.png";
 import swithmarker from "./img/swithmarker.png";
 import { useParams, Link, useNavigate } from "react-router-dom";
-
 const KakaoMap = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState([]); //주소값
@@ -17,7 +16,6 @@ const KakaoMap = () => {
   const [detailPages, setDetailPage] = useState([]);
 
   const [comments, setComments] = useState([]);
-
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -69,7 +67,8 @@ const KakaoMap = () => {
     const script = document.createElement("script");
     script.async = true;
     script.src =
-      "https://dapi.kakao.com/v2/maps/sdk.js?appkey=89730aca4ca56bd725e48019977366cc&autoload=false";
+      `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_MAP}&autoload=false`;
+
 
     document.head.appendChild(script);
 
