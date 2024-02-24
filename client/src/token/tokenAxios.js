@@ -2,7 +2,7 @@ import axios from "axios";
 
 const tokenAxios = axios.create({
   //baseURL: "http://lemonadswith.store:8080", // 원하는 API 서버의 기본 URL로 수정
-  baseURL: "http://localhost:8080",
+  baseURL: "http://lemonadswith.store:8080",
   timeout: 5000, // 요청이 5초 이상 걸리면 타임아웃 설정
 });
 
