@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+//@CrossOrigin(origins = "http://localhost:8080")
 @CrossOrigin(origins = "http://lemonadswith.store:8080")
 public class MessageController {
     private final EnterRoomService enterRoomService;

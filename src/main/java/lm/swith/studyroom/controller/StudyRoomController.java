@@ -37,6 +37,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/studyRoom")
 @RequiredArgsConstructor
+//@CrossOrigin(origins = "http://localhost:8080")
 @CrossOrigin(origins = "http://lemonadswith.store:8080")
 public class StudyRoomController {
 	private final StudyRoomService studyRoomService;
