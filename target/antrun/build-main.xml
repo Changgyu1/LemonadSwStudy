@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="maven-antrun-" default="main">
   <target name="main">
-    <copy todir="C:\Users\ckdrb\OneDrive\바탕 화면\새 폴더\Swith\target/classes/public">
-      <fileset dir="C:\Users\ckdrb\OneDrive\바탕 화면\새 폴더\Swith/client/build" />
+    <copy todir="C:\Users\ckdrb\Downloads\LemonadSwStudy-master\LemonadSwStudy\target/classes/public">
+      <fileset dir="C:\Users\ckdrb\Downloads\LemonadSwStudy-master\LemonadSwStudy/client/build" />
     </copy>
   </target>
 </project>
