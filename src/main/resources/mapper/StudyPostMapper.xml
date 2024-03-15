@@ -211,9 +211,9 @@
 		STUDY_LOCATION, FIRST_STUDY, STUDY_START
 		) VALUES (
 		#{post_no}, #{user_no}, (SELECT NICKNAME FROM USERS WHERE USER_NO = #{user_no}),
-		#{study_title}, #{study_content}, #{recruit_deadline},
+		#{study_title}, #{study_content}, TO_DATE(#{recruit_deadline}, 'YYYY-MM-DD'),
 		#{study_method}, #{recruit_type}, #{study_period},
-		#{study_location}, #{first_study}, #{study_start}
+		#{study_location}, #{first_study}, TO_DATE(#{study_start}, 'YYYY-MM-DD')
 		)
 	</insert>
 
