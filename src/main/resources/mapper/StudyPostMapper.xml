@@ -683,9 +683,9 @@
 	</select>
 	
 		<!-- 스터디방 종료 날짜 선언 -->
-	<update id="updateStudyRoomEnd" parameterType="lm.swith.main.model.StudyPost">
-	UPDATE STUDY_POST SET STUDYROOMEND = #{studyroomend} WHERE POST_NO = #{post_no}
-	</update>
+<update id="updateStudyRoomEnd" parameterType="lm.swith.main.model.StudyPost">
+    UPDATE STUDY_POST SET STUDYROOMEND = TO_DATE(#{studyroomend}, 'YYYY-MM-DD') WHERE POST_NO = #{post_no}
+</update>
 		<select id="selectStudyRoomEnd" parameterType="lm.swith.main.model.StudyPost">
 		SELECT STUDYROOMEND, POST_NO FROM STUDY_POST
 	</select>

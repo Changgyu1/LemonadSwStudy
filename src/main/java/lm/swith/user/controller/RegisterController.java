@@ -64,10 +64,6 @@ public class RegisterController {
 	    SwithUser user = userService.findByUserNo(user_no);
 
 	    if (user != null) {
-	        System.out.println(user.getEmail());
-	        System.out.println(user.getUser_no());
-	        System.out.println(user.getNickname());
-	        System.out.println(user.getUser_profile());
 	        return ResponseEntity.ok(user);
 	    } else {
 	        return ResponseEntity.notFound().build();
@@ -124,8 +120,6 @@ public class RegisterController {
                 String imageUrl = "data:image/jpeg;base64,/" + cutString;
                 user.setPassword(null);// 조회할 때 패스워드 안나오게 하려고 null값을 준다.
                 user.setImg(imageUrl);// 단순 출력용 blob을 string형태로 출력하기 위함
-                System.out.println(user.getImg());
-                System.out.println(user.getUser_profile());
 
                 return ResponseEntity.ok(user);
             } else {
@@ -218,11 +212,8 @@ public class RegisterController {
 	        @RequestParam(value = "img", required = false) MultipartFile img, // img 받아오게 해주는 부분
 	        @RequestBody SwithUser swithUser
 	    ) throws IOException {
-	    	System.out.println("img" + swithUser.getImg());
-	    	System.out.println("=====");
 	        if (swithUser.getImg() != null && !swithUser.getImg().isEmpty()) {
 				// resource 폴더에 경로를 읽는다
-	        	System.out.println("null아님");
 	        	String imageData = swithUser.getImg().split(",")[1];
 		        byte[] imageBytes = Base64.getDecoder().decode(imageData);//디코딩해서 blob 형태로 다시 넣어줌
 		        
@@ -244,7 +235,6 @@ public class RegisterController {
 		        bos.close();
 		        swithUser.setUser_profile(compressedImageBytes);
 			} else {
-				System.out.println("이미지 null임");
 				ClassPathResource defaultImageResource = new ClassPathResource("img/girl.png");
 				byte[] defaultImageBytes = StreamUtils.copyToByteArray(defaultImageResource.getInputStream());
 				swithUser.setUser_profile(defaultImageBytes);//디코딩해서 blob 형태로 다시 넣어줌
@@ -263,11 +253,9 @@ public class RegisterController {
 	    //update user profile
 	    @PostMapping("/updateUserProfile")
 	    public ResponseEntity<String> updateUserProfile(@RequestBody SwithUser swithUser) throws IOException{
-	    	 System.out.println("getUser_profile : " + swithUser.getUser_profile());
 	     	
 	    	 if (swithUser.getImg() != null && !swithUser.getImg().isEmpty()) {
 	 			// resource 폴더에 경로를 읽는다
-	         	System.out.println("null아님");
 	         	String imageData = swithUser.getImg().split(",")[1];
 	 	        byte[] imageBytes = Base64.getDecoder().decode(imageData);//디코딩해서 blob 형태로 다시 넣어줌
 	 	        

@@ -94,18 +94,17 @@
 	<!-- calendar & Todo -->
 	<insert id="createTodoList" parameterType="lm.swith.studyroom.model.Todo">
 	INSERT INTO TODO (POST_NO,TODO_LIST, CHECKED, TODO_DATE)
-	VALUES(#{post_no},  #{todo_list}, #{checked}, #{todo_date})
+	VALUES(#{post_no},  #{todo_list}, #{checked}, TO_DATE(#{todo_date}, 'YYYY-MM-DD'))
 	</insert>
-	
 	<select id= "getTodoList" parameterType ="lm.swith.studyroom.model.Todo">
 		SELECT * FROM TODO WHERE POST_NO = #{post_no} AND TODO_DATE = #{todo_date}
 	</select>
 	
 	<update id="updateTodoList" parameterType="lm.swith.studyroom.model.Todo">
-		UPDATE TODO SET TODO_LIST = #{todo_list} WHERE post_no =#{post_no} AND id=#{id} AND TODO_DATE = #{todo_date}
+		UPDATE TODO SET TODO_LIST = #{todo_list} WHERE post_no =#{post_no} AND id=#{id} AND TODO_DATE = TO_DATE(#{todo_date}, 'YYYY-MM-DD')
 	</update>
 		<delete id="deleteTodoList" parameterType="lm.swith.studyroom.model.Todo">
-		DELETE FROM TODO WHERE post_no=#{post_no} AND id = #{id} AND TODO_DATE = #{todo_date}
+		DELETE FROM TODO WHERE post_no=#{post_no} AND id = #{id} AND TODO_DATE = TO_DATE(#{todo_date}, 'YYYY-MM-DD')
 	</delete>
 	
 
