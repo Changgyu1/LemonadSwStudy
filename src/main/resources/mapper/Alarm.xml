@@ -17,7 +17,7 @@
 
     <insert id="insertAlarm" parameterType="lm.swith.alarm.model.Alarm">
         INSERT INTO alarm (user_no, post_no, alarm_message, timestamp)
-        VALUES (#{user_no}, #{post_no}, #{alarm_message}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'))
+        VALUES (#{user_no}, #{post_no}, #{alarm_message}, SYSDATE)
     </insert>
     
      <select id="AlarmByData" resultType="boolean" parameterType="java.util.Map">
