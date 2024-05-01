@@ -11,7 +11,7 @@ public interface AlarmMapper {
 
 	void insertAlarm(Alarm alarm); 
 	
-	Alarm getAlarmByUserNo(Long user_no);
+	List<Alarm> getAlarmByUserNo(Long user_no);
 	
 	boolean  AlarmByData(Long user_no, Long post_no, String alarm_message);
 	

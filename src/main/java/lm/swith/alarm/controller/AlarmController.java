@@ -24,8 +24,8 @@ public class AlarmController {
 	
 	
 	@GetMapping("/alarm_List/{user_no}")
-	public ResponseEntity<?> getAlarmByUserNo(@PathVariable Long user_no){
-		Alarm alarm = alarmService.getAlarmByUserNo(user_no);
+	public ResponseEntity<?> getAlarmByUserNo(@PathVariable("user_no") Long user_no){
+		List<Alarm> alarm = alarmService.getAlarmByUserNo(user_no);
 		return ResponseEntity.ok(alarm);		
 	}
 	
@@ -40,7 +40,7 @@ public class AlarmController {
 
 	// 알람 삭제
 	@PostMapping("/alarmDelete/{alarm_no}")
-	public ResponseEntity<?> deleteAlarm(@RequestParam Long alarm_no){
+	public ResponseEntity<?> deleteAlarm(@RequestParam("alarm_no") Long alarm_no){
 		System.out.println(alarm_no + "알람 번호 확인");
 		alarmService.deleteAlarm(alarm_no);
 		return ResponseEntity.ok("success");

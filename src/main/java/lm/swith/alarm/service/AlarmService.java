@@ -27,7 +27,7 @@ public class AlarmService {
 		alarmMapper.insertAlarm(alarm);
 	}
 	
-	public Alarm getAlarmByUserNo(Long user_no){
+	public List<Alarm> getAlarmByUserNo(Long user_no){
 		return alarmMapper.getAlarmByUserNo(user_no);
 	}
 	
