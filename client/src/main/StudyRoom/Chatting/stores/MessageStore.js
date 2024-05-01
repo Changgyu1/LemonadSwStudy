@@ -66,7 +66,7 @@ export default class MessageStore {
       this.subscribeMessageBroker(post_no);
       // 여기에 메시지 로딩 부분을 추가
       const response = await fetch(
-        `http://localhost:8080/studyRoom/post/${post_no}`
+        `http://lemonadswith.store:8080/studyRoom/post/${post_no}`
       );
       const responseData = await response.json();
       this.updateMessageLogs(responseData); // 업데이트된 메시지로그 설정
