@@ -40,7 +40,7 @@ public class AlarmController {
 
 	// 알람 삭제
 	@PostMapping("/alarmDelete/{alarm_no}")
-	public ResponseEntity<?> deleteAlarm(@RequestParam("alarm_no") Long alarm_no){
+	public ResponseEntity<?> deleteAlarm(@PathVariable("alarm_no") Long alarm_no){
 		System.out.println(alarm_no + "알람 번호 확인");
 		alarmService.deleteAlarm(alarm_no);
 		return ResponseEntity.ok("success");
