@@ -44,7 +44,7 @@ const Room = () => {
         console.log(connected); // 확인용 로그
         // 이후의 코드 실행 확인
         const response = await fetch(
-          `http://localhost:8080/studyRoom/post/${post_no}`
+          `http://lemonadswith.store:8080/studyRoom/post/${post_no}`
         );
         const responseData = await response.json();
         messageStore.updateMessageLogs(responseData);

@@ -4,7 +4,8 @@ import Stomp from "stompjs";
 import { useState } from "react";
 import { messageService } from "../Service/MessageService";
 import usersUserinfoAxios from "../../../../token/tokenAxios";
-const baseUrl = "http://localhost:8080";
+//const baseUrl = "http://localhost:8080";
+const baseUrl = "http://lemonadswith.store:8080";
 
 export default class MessageStore {
   constructor(nickname) {
