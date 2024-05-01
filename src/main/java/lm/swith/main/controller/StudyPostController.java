@@ -32,7 +32,6 @@ import lm.swith.user.model.SwithUser;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/")
 @RequiredArgsConstructor
 //@CrossOrigin(origins = "http://localhost:8080")
 @CrossOrigin(origins = "http://lemonadswith.store:8080")
@@ -96,7 +95,7 @@ public class StudyPostController {
     
     // 스터디 상세 페이지 + 댓글
     @GetMapping("/post_detail/{post_no}")
-    public ResponseEntity<StudyPost> getStudyPostByPostNo(@PathVariable Long post_no) {
+    public ResponseEntity<StudyPost> getStudyPostByPostNo(@PathVariable("post_no") Long post_no) {
         StudyPost studyPost = studyPostService.getStudyPostByPostNo(post_no); 
         List<Comments> comments = studyPostService.getCommentsByPostNo(post_no); // 댓글 목록 조회
         if (studyPost != null) {
@@ -125,7 +124,7 @@ public class StudyPostController {
 	
 	// 스터디 신청자 목록
 	@GetMapping("/application_update/{post_no}")
-    public ResponseEntity<List<StudyApplication>> getAllApplicantsByPostNo(@PathVariable Long post_no) {
+    public ResponseEntity<List<StudyApplication>> getAllApplicantsByPostNo(@PathVariable("post_no") Long post_no) {
         List<StudyApplication> studyApplicants = studyPostService.getAllApplicants2(post_no);
         if (!studyApplicants.isEmpty()) {
             return ResponseEntity.ok(studyApplicants);
@@ -170,7 +169,7 @@ public class StudyPostController {
 	
 	  // 댓글 등록
     @PostMapping("/add_comment/{post_no}/{user_no}")
-    public ResponseEntity<?> addComment(@PathVariable Long post_no, @PathVariable Long user_no, @RequestBody Comments comment) {
+    public ResponseEntity<?> addComment(@PathVariable("post_no") Long post_no, @PathVariable("user_no") Long user_no, @RequestBody Comments comment) {
         Comments comm = new Comments();
         comm.setUser_no(user_no);
         comm.setPost_no(post_no);
@@ -184,7 +183,7 @@ public class StudyPostController {
     
     // 댓글 삭제
     @DeleteMapping("/delete_comment/{post_no}/{user_no}/{comment_no}")
-    public String deleteComment(@PathVariable Long post_no, @PathVariable Long user_no, @PathVariable Long comment_no) {
+    public String deleteComment(@PathVariable("post_no") Long post_no, @PathVariable("user_no") Long user_no, @PathVariable("comment_no") Long comment_no) {
         studyPostService.deleteComment(post_no, user_no, comment_no);
 //        System.out.println(post_no);
 //        System.out.println(user_no);
@@ -194,7 +193,7 @@ public class StudyPostController {
     
     // 댓글 수정
     @PostMapping("/update_comment/{post_no}/{user_no}/{comment_no}")
-    public String updateComment(@PathVariable Long post_no, @PathVariable Long user_no, @PathVariable Long comment_no ,@RequestBody Comments comments) {
+    public String updateComment(@PathVariable("post_no") Long post_no, @PathVariable("user_no") Long user_no, @PathVariable("comment_no") Long comment_no ,@RequestBody Comments comments) {
 //    	System.out.println(comment_no + " comment_no");
 //    	System.out.println(post_no + " post");
 //    	System.out.println(SwithUser_no + " SwithUser");
@@ -215,7 +214,8 @@ public class StudyPostController {
     
     // 검색 카페 목록
     @GetMapping("/KeywordCafes")
-    public List<Cafes> searchCafes(@RequestParam String keyword) {
+    public List<Cafes> searchCafes(@RequestParam("keyword") String keyword) {
+    	System.out.println("keyword : " + keyword);
         return studyPostService.searchCafes(keyword);
     }
     
@@ -259,7 +259,8 @@ public class StudyPostController {
      
      // 찜한 스터디 목록
      @GetMapping("/liked_studies/{user_no}")
-     public ResponseEntity<List<StudyPost>> getAllStudiesWithLikes(@PathVariable Long user_no) {
+     public ResponseEntity<List<StudyPost>> getAllStudiesWithLikes(@PathVariable("user_no") Long user_no) {
+    	 System.out.println("user_no : " + user_no + " lies");
      	List<StudyPost> studyPost = studyPostService.getAllStudiesWithLikes(user_no);
          if (studyPost != null ) {
              return ResponseEntity.ok(studyPost);
