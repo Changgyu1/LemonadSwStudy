@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="maven-antrun-" default="main">
   <target name="main">
-    <copy todir="C:\Users\ckdrb\OneDrive\바탕 화면\ParkLMProject-AWS\Lm\LemonadSwStudy\target/classes/public">
-      <fileset dir="C:\Users\ckdrb\OneDrive\바탕 화면\ParkLMProject-AWS\Lm\LemonadSwStudy/client/build" />
+    <copy todir="C:\Users\ckdrb\OneDrive\바탕 화면\dqw\LemonadSwStudy\target/classes/public">
+      <fileset dir="C:\Users\ckdrb\OneDrive\바탕 화면\dqw\LemonadSwStudy/client/build" />
     </copy>
   </target>
 </project>
