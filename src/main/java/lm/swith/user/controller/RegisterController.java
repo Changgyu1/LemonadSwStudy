@@ -30,14 +30,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lm.swith.main.model.Likes;
 import lm.swith.main.model.StudyApplication;
-import lm.swith.user.Service.KakaoService;
 import lm.swith.user.Service.MailService;
 import lm.swith.user.Service.UserService;
-import lm.swith.user.common.MsgEntity;
-import lm.swith.user.model.ResponseDTO;
 import lm.swith.user.model.SwithDTO;
 import lm.swith.user.model.SwithUser;
 import lm.swith.user.token.TokenProvider;
@@ -50,7 +46,6 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin(origins = "http://localhost:8080")
 //@CrossOrigin(origins = "http://lemonadswith.store:8080")
 public class RegisterController {
-	private final KakaoService kakaoService;
 	private final UserService userService;
 	private final MailService mailService;
 	private final JavaMailSender javaMailSender;
@@ -248,7 +243,6 @@ public class RegisterController {
 		}
 	
 		
-	//update 하은이 파트 
 	    
 	    //update user profile
 	    @PostMapping("/updateUserProfile")
@@ -337,53 +331,6 @@ public class RegisterController {
 	    }
 	    
 	    
-	//카카오 
-	@GetMapping("/kakao/callback")
-    public String callback(HttpServletRequest request,
-                           @RequestParam(required = false) String password,
-                           @RequestParam(required = false) String userName, 
-                           @RequestParam(required = false) byte[] userProfile,
-                           @RequestParam(required = false) String userAddress,
-                           @RequestParam(required = false) String userIntroduction,
-                           @RequestParam(required = false) String user_role,
-                           Model model) throws Exception {
 
-        SwithUser kakaoInfo = kakaoService.getKakaoInfo(request.getParameter("code"), password,userName, userProfile,userAddress,userIntroduction,user_role );
-        model.addAttribute("kakaoInfo", kakaoInfo);
-        return "kakaoRegister";
-    }
-    @PostMapping("/kakaoregister")
-    public ResponseEntity<MsgEntity> registerUser(@RequestParam String email,
-									    		  @RequestParam String password,
-										          @RequestParam String userName,
-										          @RequestParam String nickname,
-										          @RequestParam byte[] userProfile,
-										          @RequestParam String userAddress, 
-												  @RequestParam String userIntroduction, 
-												  @RequestParam String user_role
-												  ) {
-        SwithUser swithUser = SwithUser.builder()
-        		.email(email)
-        		.password(password)
-                .username(userName)
-                .nickname(nickname)
-                .user_profile(userProfile)
-                .useraddress(userAddress)
-                .user_introduction(userIntroduction)
-                .user_role(user_role)
-                .build();
 
-        SwithUser registeredUser = userService.signUpUser(swithUser);
-        
-        
-        return ResponseEntity.ok()
-                .body(new MsgEntity("Success", registeredUser));
-       
-        /* String redirectUrl = request.getContextPath() + "/";
-        MsgEntity responseMsg = new MsgEntity("Success", registeredUser, redirectUrl);
-
-        return ResponseEntity.ok()
-                .body(responseMsg);
-                */
-    }
 }

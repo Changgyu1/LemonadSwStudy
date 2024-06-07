@@ -10,7 +10,6 @@ lm\swith\main\controller\StudyPostController.class
 lm\swith\main\model\PostTechStacks.class
 lm\swith\alarm\controller\AlarmController.class
 lm\swith\main\model\Users.class
-lm\swith\user\Service\KakaoService.class
 lm\swith\user\Service\UserService.class
 lm\swith\main\model\Likes.class
 lm\swith\main\model\Comments.class
