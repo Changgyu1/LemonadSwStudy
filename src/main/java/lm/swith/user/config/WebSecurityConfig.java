@@ -28,16 +28,16 @@ import lombok.extern.slf4j.Slf4j;
 		 
 
 	        http
-	        
-	        .cors(cors -> cors.disable())
-	        .csrf(csrf -> csrf.disable()) 
+	        .cors(cors -> cors.configure(http))
+	        .csrf(csrf -> csrf.disable()) // 로그인 요청에 대해 CSRF 비활성화
 	        .httpBasic(httpHasic -> httpHasic.disable()) // token을 사용하르모 basic 인증 disable
 	        .sessionManagement((session) -> session // session 기반이 아님을 선언
 	                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
 	        .authorizeHttpRequests(authorizeRequests -> 
 	        authorizeRequests
-	            .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+	            .requestMatchers(new AntPathRequestMatcher("/users/signin")).permitAll() // login endpoint는 인증 없이 로그인
+	            .anyRequest().authenticated() // 다른 모든 요청은 인증 필요
 	    )
 	            .addFilterAfter(
 	        			jwtAuthenticationFilter,

@@ -1,125 +1,154 @@
 package lm.swith.user.Service;
 
-import java.sql.Blob;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import javax.imageio.ImageIO;
+
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.util.StreamUtils;
 
 import lm.swith.main.model.Likes;
 import lm.swith.main.model.StudyApplication;
 import lm.swith.user.mapper.UsersMapper;
 import lm.swith.user.model.SwithUser;
-import lombok.extern.slf4j.Slf4j;
-@Slf4j
-@Service
-public class UserService {
-	@Autowired
-	private UsersMapper usersMapper;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder; //encoding password
-    
+import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ClassPathResource;
 
-	public SwithUser signUpUser(SwithUser swithUser) { //save the register user  
-		SwithUser user = new SwithUser();
-		user.setEmail(swithUser.getEmail());
-		user.setPassword(passwordEncoder.encode(swithUser.getPassword()));
-		user.setUsername(swithUser.getUsername());
-		user.setNickname(swithUser.getNickname());
-		user.setUser_profile(swithUser.getUser_profile());
-		user.setUseraddress(swithUser.getUseraddress());
-		user.setUser_introduction(swithUser.getUser_introduction());
-		user.setUser_role(swithUser.getUser_role());
-		
-		usersMapper.insertUser(user);
-		return user;
-	}
-	//login
-	public SwithUser login(String email, String password) {
-		return usersMapper.findByEmailAndPassword(email, password);
-	}
-	//find role
-	public SwithUser findUserRole(String user_role) {
-		return usersMapper.findUserRole(user_role);
-	}
-	public List<SwithUser> findUsersAll(){
-		return usersMapper.findUsersAll();
-	}
-	
-	//validation before publishing token
-	public SwithUser getByCredentials(final String email, final String password) {
-		return usersMapper.findByEmailAndPassword(email, password);
-	}
-	
-	public SwithUser getByCredentials(final String email, final String password, final PasswordEncoder encoder) {
-		final SwithUser originalUser = usersMapper.findByEmail(email);
-		// matches 메서드를 이용해 패스워드가 같은지 확인
-		if (originalUser != null && encoder.matches(password, originalUser.getPassword())) {
-	        return originalUser;
-	    }
-		return null;
-	}
-	
-	public SwithUser getUserByEmail(String email) {
+@Service
+@RequiredArgsConstructor
+public class UserService {
+
+    private final UsersMapper usersMapper;
+    private final PasswordEncoder passwordEncoder;
+    private final JavaMailSender javaMailSender;
+
+    public SwithUser registerUser(SwithUser swithUser) throws IOException {
+        if (swithUser.getImg() != null && !swithUser.getImg().isEmpty()) {
+            String imageData = swithUser.getImg().split(",")[1];
+            byte[] imageBytes = Base64.getDecoder().decode(imageData);
+
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
+            BufferedImage originalImage = ImageIO.read(bis);
+            bis.close();
+
+            int newWidth = 500;
+            int newHeight = (int) (originalImage.getHeight() * (1.0 * newWidth / originalImage.getWidth()));
+            BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+            resizedImage.getGraphics().drawImage(originalImage, 0, 0, newWidth, newHeight, null);
+
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ImageIO.write(resizedImage, "png", bos);
+            byte[] compressedImageBytes = bos.toByteArray();
+            bos.close();
+            swithUser.setUser_profile(compressedImageBytes);
+        } else {
+            ClassPathResource defaultImageResource = new ClassPathResource("img/girl.png");
+            byte[] defaultImageBytes = StreamUtils.copyToByteArray(defaultImageResource.getInputStream());
+            swithUser.setUser_profile(defaultImageBytes);
+        }
+
+        swithUser.setPassword(passwordEncoder.encode(swithUser.getPassword()));
+        usersMapper.insertUser(swithUser);
+        return swithUser;
+    }
+
+    public SwithUser findByUserNo(Long user_no) {
+        return usersMapper.findByUserNo(user_no);
+    }
+
+    public SwithUser getByCredentials(String email, String password, PasswordEncoder encoder) {
+        SwithUser originalUser = usersMapper.findByEmail(email);
+        if (originalUser != null && encoder.matches(password, originalUser.getPassword())) {
+            return originalUser;
+        }
+        return null;
+    }
+
+    public SwithUser getAuthenticatedUser(String email) {
+        SwithUser user = getUserByEmail(email);
+        if (user != null) {
+            byte[] profile_img = user.getUser_profile();
+            if (profile_img != null && profile_img.length > 0) {
+                String imageBase64 = Base64.getEncoder().encodeToString(profile_img);
+                String cutString = imageBase64.substring(imageBase64.indexOf("data:image/jpeg;base64") + "data:image/jpeg;base64".length());
+                String imageUrl = "data:image/jpeg;base64,/" + cutString;
+                user.setPassword(null);
+                user.setImg(imageUrl);
+            }
+        }
+        return user;
+    }
+
+    public SwithUser getUserByEmail(String email) {
         return usersMapper.findByEmail(email);
     }
-	public SwithUser getUserByNickname(String nickname) {
+
+    public SwithUser getUserByNickname(String nickname) {
         return usersMapper.findByNickname(nickname);
     }
-	// select user_no
-		public SwithUser findByUserNo(Long user_no) {
-			return usersMapper.findByUserNo(user_no);
-		}
-	
-//UPDATE USER 
-	//update user profile
-	public void updateUserProfile(SwithUser swithUser) {
-		usersMapper.updateUserProfile(swithUser);
-	}
-	
-	//update user info
-	public void updateUser(SwithUser swithUser) {
-		usersMapper.updateUser(swithUser);
-	}
 
-	//update user password
-	public void updatePassword(SwithUser swithUser) {
-		swithUser.setPassword(passwordEncoder.encode(swithUser.getPassword()));
-		usersMapper.updatePassword(swithUser);
-	}
-	
-//DELETE USER 
-	//delete user by Email
-	public void deleteUser(SwithUser swithUser) {
-		usersMapper.deleteUser(swithUser);
-	}
-	public void deleteUserLikes(Likes likes) {
-		usersMapper.deleteUserLikes(likes);
-	}
-	public void deleteUserApplication(StudyApplication studyApplication) {
-		usersMapper.deleteUserApplication(studyApplication);
-	}
-	public List<SwithUser> selectDeleteUserList() {
-		return usersMapper.selectDeleteUserList();
-	}
-	
-	public void deleteAdmin(SwithUser swithUser) {
-		usersMapper.deleteAdmin(swithUser);
-	}
-	
-	
-	
-	
+    public void updateUserProfile(SwithUser swithUser) throws IOException {
+        if (swithUser.getImg() != null && !swithUser.getImg().isEmpty()) {
+            String imageData = swithUser.getImg().split(",")[1];
+            byte[] imageBytes = Base64.getDecoder().decode(imageData);
+
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
+            BufferedImage originalImage = ImageIO.read(bis);
+            bis.close();
+
+            int newWidth = 500;
+            int newHeight = (int) (originalImage.getHeight() * (1.0 * newWidth / originalImage.getWidth()));
+            BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+            resizedImage.getGraphics().drawImage(originalImage, 0, 0, newWidth, newHeight, null);
+
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ImageIO.write(resizedImage, "png", bos);
+            byte[] compressedImageBytes = bos.toByteArray();
+            bos.close();
+            swithUser.setUser_profile(compressedImageBytes);
+        }
+        usersMapper.updateUserProfile(swithUser);
+    }
+
+    public void updateUser(SwithUser swithUser) {
+        usersMapper.updateUser(swithUser);
+    }
+
+    public void updatePassword(SwithUser swithUser) {
+        swithUser.setPassword(passwordEncoder.encode(swithUser.getPassword()));
+        usersMapper.updatePassword(swithUser);
+    }
+
+    public void deleteUser(SwithUser swithUser) {
+        usersMapper.deleteUser(swithUser);
+    }
+
+    public void deleteUserLikes(Likes likes) {
+        usersMapper.deleteUserLikes(likes);
+    }
+
+    public void deleteUserApplication(StudyApplication studyApplication) {
+        usersMapper.deleteUserApplication(studyApplication);
+    }
+
+    public List<SwithUser> selectDeleteUserList() {
+        return usersMapper.selectDeleteUserList();
+    }
+
+    public void deleteAdmin(SwithUser swithUser) {
+        usersMapper.deleteAdmin(swithUser);
+    }
+
+    public int sendVerificationMail(String email) {
+        // MailService 객체 생성 및 메일 전송 로직 추가
+        MailService mailService = new MailService(javaMailSender);
+        return mailService.sendMail(email);
+    }
 }
