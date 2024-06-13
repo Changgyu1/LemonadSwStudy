@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 
 	        .authorizeHttpRequests(authorizeRequests -> 
 	        authorizeRequests
-	            .requestMatchers(new AntPathRequestMatcher("/users/signin")).permitAll() // login endpoint는 인증 없이 로그인
+	            .requestMatchers(new AntPathRequestMatcher("/**")).permitAll() // login endpoint는 인증 없이 로그인
 	            .anyRequest().authenticated() // 다른 모든 요청은 인증 필요
 	    )
 	            .addFilterAfter(

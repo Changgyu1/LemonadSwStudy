@@ -21,7 +21,7 @@ public class SwithApplication {
 			registry
 			.addMapping("/**")
 			//.allowedOriginPatterns("http://localhost:3000")
-			.allowedOriginPatterns("http://lemonadswith.store:8080")
+			.allowedOriginPatterns("*")
 			.allowedMethods("OPTIONS", "GET", "POST", "PUT", "DELETE")
 			.allowCredentials(true).maxAge(3600);
 		}
