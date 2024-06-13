@@ -18,7 +18,6 @@ lm\swith\studyroom\model\StudyRoomNotice.class
 lm\swith\alarm\service\AlarmService.class
 lm\swith\user\config\WebSecurityConfig.class
 lm\swith\studyroom\service\QuitRoomService.class
-lm\swith\user\config\WebMvcConfig.class
 lm\swith\studyroom\model\MessageRequestDto.class
 lm\swith\studyroom\model\MessageResponseDto.class
 lm\swith\user\model\ResponseDTO.class
@@ -46,5 +45,6 @@ lm\swith\studyroom\config\WebSocketConfig.class
 lm\swith\main\model\Cafes.class
 lm\swith\studyroom\service\StudyRoomService.class
 lm\swith\user\common\MsgEntity.class
+lm\swith\SwithApplication$WebMvcConfig.class
 lm\swith\user\model\SwithDTO$SwithDTOBuilder.class
 lm\swith\studyroom\controller\MessageController.class
