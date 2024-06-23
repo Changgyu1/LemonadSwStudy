@@ -12,7 +12,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lm.swith.user.model.SwithUser;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 public class TokenProvider {
 	 private static final String SECRET_KEY = "Lemonade12fas2SwithsacacStudy";
@@ -30,18 +29,7 @@ public class TokenProvider {
 	                .setExpiration(expiryDate)
 	                .compact();
 	    }
-
-	    // RefreshToken 생성
-	    public String createRefreshToken() {
-	        // 현재 시간을 기준으로 7일 후의 만료 시간을 설정 (예시로 7일, 실제 사용에 따라 조절)
-	        Date expiryDate = Date.from(Instant.now().plus(7, ChronoUnit.DAYS));
-
-	        return Jwts.builder()
-	                .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
-	                .setExpiration(expiryDate)
-	                .compact();
-	    }
-
+	    
 	    // AccessToken 검증 및 사용자 이메일 추출
 	    public String validateAndGetUserEmail(String accessToken) {
 	        try {

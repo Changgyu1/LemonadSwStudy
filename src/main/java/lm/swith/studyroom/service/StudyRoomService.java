@@ -35,10 +35,12 @@ public class StudyRoomService {
     private final StudyPostMapper studyPostMapper;
     private final StudyPostService studyPostService;
 
+    // 
     public List<StudyApplication> StudyRoomParticipant(Long post_no) {
         return studyPostMapper.getAllApplicantsByPostNoStudyRoom(post_no);
     }
 
+    // Moment Insert
     public void createStudyMoment(StudyMoment studyMoment) throws IOException {
         if (studyMoment.getImg() != null && !studyMoment.getImg().isEmpty()) {
             String imageData = studyMoment.getImg().split(",")[1];

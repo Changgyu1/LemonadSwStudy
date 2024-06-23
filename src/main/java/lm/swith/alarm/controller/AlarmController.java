@@ -29,14 +29,6 @@ public class AlarmController {
 		return ResponseEntity.ok(alarm);		
 	}
 	
-	@PostMapping("/add_alarm")
-	public ResponseEntity<?> InsertAlarm(@RequestBody Alarm alarm){
-		System.out.println(alarm.getAlarm_message());
-		System.out.println(alarm.getPost_no());
-		System.out.println(alarm.getUser_no());
-		alarmService.InsertAlarm(alarm);
-		return ResponseEntity.ok("success");
-	}
 
 	// 알람 삭제
 	@PostMapping("/alarmDelete/{alarm_no}")

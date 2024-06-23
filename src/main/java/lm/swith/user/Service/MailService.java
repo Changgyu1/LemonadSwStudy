@@ -23,7 +23,6 @@ public class MailService {
   public MimeMessage CreateMail(String email) throws MessagingException{
       createNumber();
       MimeMessage message = javaMailSender.createMimeMessage();
-
 	        try {
 	        	message.setFrom(senderEmail);
 		        message.setRecipients(MimeMessage.RecipientType.TO, email);
@@ -37,7 +36,6 @@ public class MailService {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
       return message;
   }
 
