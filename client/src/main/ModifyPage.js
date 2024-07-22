@@ -47,7 +47,7 @@ const UpdateUser = () => {
     try {
       //서버로 업데이트할 데이터 보내기
       const response = await usersUserinfoAxios.post(
-        "http://localhost:8080/users/updateUserProfile",
+        "/users/updateUserProfile",
         userData,
         // 업데이트할 필드만 전송
         {
@@ -95,7 +95,7 @@ const UpdateUser = () => {
     try {
       //서버로 업데이트할 데이터 보내기
       const response = await usersUserinfoAxios.post(
-        "http://localhost:8080/users/updateUser",
+        "/users/updateUser",
         userData,
         // 업데이트할 필드만 전송
 
@@ -123,8 +123,8 @@ const UpdateUser = () => {
       return;
     }
     try {
-      const response = await axios.post(
-        "http://localhost:8080/users/nickname",
+      const response = await usersUserinfoAxios.post(
+        "/users/nickname",
         userData,
         {
           withCredentials: true,
@@ -158,7 +158,7 @@ const UpdateUser = () => {
       try {
         //서버로 업데이트할 데이터 보내기
         const response = await usersUserinfoAxios.post(
-          "http://localhost:8080/users/updatePassword",
+          "/users/updatePassword",
           userData, //수정된 사용자 데이터 보내기
           {
             withCredentials: true,
@@ -205,7 +205,7 @@ const UpdateUser = () => {
       try {
         //서버로 삭제할 데이터 보내기
         const response = await usersUserinfoAxios.post(
-          "http://localhost:8080/users/deleteUser",
+          "/users/deleteUser",
           userData,
           // 삭제 전송
           {
@@ -213,14 +213,14 @@ const UpdateUser = () => {
           }
         );
         const responseLikes = await usersUserinfoAxios.post(
-          "http://localhost:8080/users/deleteLikes",
+          "/users/deleteLikes",
           userData,
           {
             withCredentials: true,
           }
         );
         const responseApplication = await usersUserinfoAxios.post(
-          "http://localhost:8080/users/deleteApplication",
+          "/users/deleteApplication",
           userData,
           {
             withCredentials: true,

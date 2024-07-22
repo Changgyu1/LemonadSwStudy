@@ -49,7 +49,7 @@ function FindUser() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/users/ExistEmail",
+        "http://lemonadswith.store:8080/users/ExistEmail",
         { email },
         {
           withCredentials: true,
@@ -80,7 +80,7 @@ function FindUser() {
     } else {
       try {
         const response = await axios.post(
-          "http://localhost:8080/users/findPassword",
+          "http://lemonadswith.store:8080/users/findPassword",
           swithUser,
           {
             withCredentials: true,
@@ -136,7 +136,7 @@ function FindUser() {
       try {
         //서버로 업데이트할 데이터 보내기
         const response = await usersUserinfoAxios.post(
-          "http://localhost:8080/users/updatePassword",
+          "http://lemonadswith.store:8080/users/updatePassword",
           swithUser, //수정된 사용자 데이터 보내기
           {
             withCredentials: true,

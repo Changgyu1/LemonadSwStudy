@@ -34,7 +34,7 @@ const TodoApp = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/studyRoom/create/Todo/${post_no}`,
+        `http://lemonadswith.store:8080/studyRoom/create/Todo/${post_no}`,
         {
           todo_description: todo_description,
           checked: false,
