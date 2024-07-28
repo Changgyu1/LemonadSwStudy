@@ -1,4 +1,7 @@
 <h3>위치기반 API 활용해 스터디,프로젝트 구성원을 찾는 구인 웹사이트</h3>
+<br></br>
+<h4>TEST ID : test@naver.com <br></br>
+TEST PW : @a123456789</h4>
 <img width="690" alt="ERD" src="https://github.com/Changgyu1/LemonadSwStudy/assets/100547448/ff4afdfe-02f4-4edf-8553-da7f17e63705">
 <br><br>
 <h3>기획의도</h3>
